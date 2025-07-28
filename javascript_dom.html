@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional JavaScript DOM Manipulation & Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a82fb; /* Blue from quiz */
+            --secondary-color: #fc5c7d; /* Pink/Red from quiz */
+            --accent-color: #ffb703; /* Yellow for progress/buttons */
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --section-bg: rgba(0, 0, 0, 0.2); /* Darker background for sections */
+            --code-bg: rgba(0, 0, 0, 0.3); /* Background for code blocks */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px; /* Adjusted width for course content */
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px var(--shadow-color);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        p.subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .course-section {
+            background: var(--section-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            border: 1px solid var(--card-border);
+            animation: fadeIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .course-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .course-section h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .course-section p, .course-section ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .course-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .course-section ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .course-section ul li::before {
+            content: '✅'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            color: #e6e6e6; /* Lighter color for code text */
+            white-space: pre-wrap; /* Preserve whitespace and wrap */
+            word-break: break-all; /* Break long words */
+        }
+
+        .action-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--accent-color);
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .action-button:hover {
+            background: #ffc107;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            p.subtitle {
+                font-size: 1.2rem;
+            }
+            .course-section {
+                padding: 20px;
+            }
+            .course-section h2 {
+                font-size: 1.8rem;
+            }
+            .course-section p, .course-section ul, pre code {
+                font-size: 1rem;
+            }
+            .action-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .back-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            p.subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            .course-section h2 {
+                font-size: 1.5rem;
+            }
+            .course-section p, .course-section ul, pre code {
+                font-size: 0.9rem;
+            }
+            .action-button {
+                display: block; /* Stack buttons on small screens */
+                width: calc(100% - 20px); /* Adjust for margin */
+                margin: 10px auto;
+            }
+            .video-wrapper {
+                padding-bottom: 75%; /* Adjust for taller video on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Professional JavaScript DOM Manipulation & Events</h1>
+        <p class="subtitle">Master dynamic web interfaces by controlling HTML and responding to user actions.</p>
+
+        <div class="course-section">
+            <h2>About This Course</h2>
+            <p>Welcome to the <strong>Professional JavaScript DOM Manipulation & Events</strong> course! This program is designed to transform your understanding of how JavaScript interacts with web pages. If you're comfortable with JavaScript fundamentals and are ready to build truly interactive and dynamic user experiences, this course is your next step.</p>
+            <p>We'll dive deep into the Document Object Model (DOM), learning how to select, create, modify, and remove HTML elements using JavaScript. More importantly, you'll master event handling, enabling your web applications to respond intelligently to user clicks, keyboard inputs, form submissions, and much more. This course emphasizes practical application, with numerous coding exercises and a final project to solidify your skills.</p>
+            <p>By the end of this course, you'll be able to create rich, responsive, and engaging web interfaces that react seamlessly to user interactions, making your web applications come alive.</p>
+        </div>
+
+        <div class="course-section">
+            <h2>What You Will Learn (Course Modules)</h2>
+            <p>This course is structured into several modules, each building upon the last to provide a comprehensive understanding of DOM manipulation and event handling:</p>
+            <ul>
+                <li><strong>Module 1: Introduction to the DOM & Document Object</strong>
+                    <p>Understand what the Document Object Model (DOM) is, how browsers construct it, and how JavaScript serves as the bridge to interact with HTML and CSS.</p>
+                </li>
+                <li><strong>Module 2: Selecting Elements</strong>
+                    <p>Master various methods to select single or multiple HTML elements: `getElementById`, `getElementsByClassName`, `getElementsByTagName`, `querySelector`, `querySelectorAll`.</p>
+                </li>
+                <li><strong>Module 3: Modifying HTML Content & Attributes</strong>
+                    <p>Learn to change text content (`textContent`, `innerText`), HTML structure (`innerHTML`), and element attributes (`setAttribute`, `getAttribute`, `removeAttribute`).</p>
+                </li>
+                <li><strong>Module 4: Manipulating CSS Styles</strong>
+                    <p>Dynamically change element styles using `style` property, `classList` (add, remove, toggle, contains), and best practices for managing styles with JavaScript.</p>
+                </li>
+                <li><strong>Module 5: Creating & Appending Elements</strong>
+                    <p>Programmatically create new HTML elements (`createElement`), append them to the DOM (`appendChild`, `insertBefore`), and remove existing ones (`removeChild`).</p>
+                </li>
+                <li><strong>Module 6: Event Handling Fundamentals</strong>
+                    <p>Understand the event flow (bubbling, capturing), and attach event listeners using `addEventListener` for clicks, hovers, and other common interactions.</p>
+                </li>
+                <li><strong>Module 7: Common Event Types & Properties</strong>
+                    <p>Explore various event types (Mouse Events, Keyboard Events, Form Events) and useful event object properties (e.g., `event.target`, `event.preventDefault()`).</p>
+                </li>
+                <li><strong>Module 8: Event Delegation & Performance</strong>
+                    <p>Learn the powerful technique of event delegation to optimize performance and simplify event management for dynamic lists of elements.</p>
+                </li>
+                <li><strong>Module 9: Working with Forms & Input Elements</strong>
+                    <p>Handle form submissions, validate input fields, and interact with various form controls (text inputs, checkboxes, radio buttons, selects).</p>
+                </li>
+                <li><strong>Module 10: Advanced DOM Concepts & Traversing</strong>
+                    <p>Dive into more complex DOM methods for traversing the tree (parent, children, siblings) and understanding `NodeList` vs. `HTMLCollection`.</p>
+                </li>
+                <li><strong>Module 11: Introduction to Web APIs (e.g., Geolocation, Fetch)</strong>
+                    <p>Get an overview of how JavaScript interacts with browser APIs beyond the DOM, like fetching data from external sources (`Fetch API`).</p>
+                </li>
+                <li><strong>Module 12: Building Interactive Components</strong>
+                    <p>Apply all learned concepts to build practical, interactive UI components such as accordions, tabs, carousels, and modal dialogs.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="course-section">
+            <h2>Video Lecture: JavaScript DOM Crash Course</h2>
+            <p>This video provides a comprehensive crash course on JavaScript DOM manipulation and event handling. You'll see practical demonstrations of how to select elements, change their content and styles, and make them respond to user interactions. This lecture covers:</p>
+            <ul>
+                <li><strong>Accessing Elements:</strong> Using `document.getElementById`, `querySelector`, etc.</li>
+                <li><strong>Changing Content:</strong> Modifying `textContent` and `innerHTML`.</li>
+                <li><strong>Styling Elements:</strong> Applying and toggling CSS classes with `classList`.</li>
+                <li><strong>Event Listeners:</strong> Attaching functions to user actions like clicks and key presses.</li>
+                <li><strong>Event Object:</strong> Understanding `event.target` and `event.preventDefault()`.</li>
+                <li><strong>Creating Elements:</strong> Dynamically adding new HTML to the page.</li>
+            </ul>
+            <div class="video-wrapper">
+                <!-- Placeholder for a relevant YouTube video. Example: "JavaScript DOM Crash Course" by Traversy Media -->
+                <iframe src="https://www.youtube.com/embed/0ik66FAgX_E?si=abcdefg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <p><i>Note: The video above is a placeholder. In a real course, you would find a relevant, high-quality lecture on JavaScript DOM here.</i></p>
+        </div>
+
+        <div class="course-section">
+            <h2>Learn by Example: Practical DOM Manipulation & Events</h2>
+            <p>To truly master DOM manipulation and event handling, it's crucial to practice with real code. Below are explanations and examples for some core interactions you'll implement.</p>
+
+            <h3>Example 1: Changing Text Content on Click</h3>
+            <p>This example demonstrates how to select an element and change its text content when a button is clicked.</p>
+            <pre><code>
+/* HTML Structure */
+&lt;h3 id="myHeading"&gt;Hello, World!&lt;/h3&gt;
+&lt;button id="changeTextBtn"&gt;Change Text&lt;/button&gt;
+
+/* JavaScript */
+const myHeading = document.getElementById('myHeading');
+const changeTextBtn = document.getElementById('changeTextBtn');
+
+changeTextBtn.addEventListener('click', () => {
+  myHeading.textContent = 'Text Changed by JavaScript!';
+  myHeading.style.color = 'var(--accent-color)'; /* Apply a dynamic color */
+});
+            </code></pre>
+            <p><strong>Explanation:</strong> We get references to the `h3` and `button` elements. An `addEventListener` is attached to the button, listening for a 'click'. When clicked, the `textContent` of the heading is updated, and its color is changed dynamically.</p>
+
+            <h3>Example 2: Toggling a Class for Styling</h3>
+            <p>This example shows how to add or remove a CSS class to an element using `classList.toggle()`, which is great for visual state changes like showing/hiding menus or applying active states.</p>
+            <pre><code>
+/* CSS */
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #3498db; /* Blue */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.box.active {
+  background-color: #2ecc71; /* Green when active */
+  transform: scale(1.1);
+}
+
+/* HTML Structure */
+&lt;div class="box" id="myBox"&gt;&lt;/div&gt;
+&lt;button id="toggleBoxBtn"&gt;Toggle Active&lt;/button&gt;
+
+/* JavaScript */
+const myBox = document.getElementById('myBox');
+const toggleBoxBtn = document.getElementById('toggleBoxBtn');
+
+toggleBoxBtn.addEventListener('click', () => {
+  myBox.classList.toggle('active'); // Adds 'active' if not present, removes if present
+});
+            </code></pre>
+            <p><strong>Explanation:</strong> The `.box` element has a default style. When the button is clicked, `myBox.classList.toggle('active')` adds or removes the `active` class. The CSS then applies different styles (background color, scale) when the `active` class is present, creating a visual toggle effect.</p>
+
+            <h3>Example 3: Creating and Appending New Elements</h3>
+            <p>Learn how to dynamically create new HTML elements and add them to the page. This is fundamental for building dynamic lists, comments sections, or any content generated by user input or data.</p>
+            <pre><code>
+/* HTML Structure */
+&lt;ul id="myList"&gt;
+  &lt;li&gt;Existing Item 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button id="addItemBtn"&gt;Add New Item&lt;/button&gt;
+
+/* JavaScript */
+const myList = document.getElementById('myList');
+const addItemBtn = document.getElementById('addItemBtn');
+let itemCounter = 2;
+
+addItemBtn.addEventListener('click', () => {
+  // 1. Create a new list item element
+  const newItem = document.createElement('li');
+
+  // 2. Set its text content
+  newItem.textContent = `Dynamically Added Item ${itemCounter}`;
+
+  // Optional: Add a class for styling
+  newItem.classList.add('new-list-item');
+
+  // 3. Append the new item to the unordered list
+  myList.appendChild(newItem);
+
+  itemCounter++;
+});
+            </code></pre>
+            <p><strong>Explanation:</strong> When the "Add New Item" button is clicked, JavaScript creates a new `<li>` element, sets its text, and then appends it as a child to the `<ul>` with the ID `myList`. This demonstrates how to build up page content dynamically.</p>
+        </div>
+
+        <div class="course-section">
+            <h2>Test Your Knowledge: JavaScript DOM & Events Quiz</h2>
+            <p>After reviewing the course content, watching the video lecture, and going through the practical examples, you should now have a solid foundation in JavaScript DOM manipulation and event handling. It's time to put your knowledge to the ultimate test!</p>
+            <p>This quiz will challenge your understanding of key DOM methods, event types, event flow, and best practices for creating interactive web applications. The quiz consists of multiple-choice and possibly some short answer questions designed to reinforce key learnings and identify any areas where you might need further review. Aim for a high score to demonstrate your mastery and readiness for building dynamic front-end experiences!</p>
+            <a href="#" class="action-button">Start Quiz</a>
+            <p><i>(Quiz functionality to be implemented in a separate file, e.g., `js-dom-quiz.html`)</i></p>
+        </div>
+
+        <div class="course-section">
+            <h2>Main Exercises & Projects: Build Real-World Skills</h2>
+            <p>Theory is important, but practical application is where true mastery happens. This section provides a series of hands-on exercises and a significant capstone project to solidify your understanding and build a strong portfolio.</p>
+            <ul>
+                <li><strong>Exercise 1: Interactive To-Do List Application</strong>
+                    <p>Build a fully functional to-do list where users can add, mark as complete, and delete tasks. This will involve creating elements dynamically, handling click events, and managing styles.</p>
+                </li>
+                <li><strong>Exercise 2: Custom Modal Dialog</strong>
+                    <p>Create a reusable modal dialog component that can be opened and closed with JavaScript. Implement features like closing on overlay click and pressing the Escape key.</p>
+                </li>
+                <li><strong>Exercise 3: Simple Image Carousel/Slider</strong>
+                    <p>Develop an image carousel that allows users to navigate through a series of images using "next" and "previous" buttons, and potentially auto-play.</p>
+                </li>
+                <li><strong>Exercise 4: Form Validation with Real-time Feedback</strong>
+                    <p>Build a multi-field form and implement client-side validation using JavaScript. Provide real-time feedback to the user as they type (e.g., valid/invalid indicators).</p>
+                </li>
+                <li><strong>Capstone Project: Interactive Product Landing Page</strong>
+                    <p>Create a dynamic product landing page that features interactive elements like a "Read More" toggle for descriptions, an image gallery that changes on click, and a dynamic "Add to Cart" button that updates a counter.</p>
+                </li>
+            </ul>
+            <a href="#" class="action-button">Access Exercises</a>
+            <p><i>(Exercises content and starter files to be implemented separately)</i></p>
+        </div>
+
+        <div class="course-section">
+            <h2>What's Next?</h2>
+            <p>Congratulations on completing the Professional JavaScript DOM Manipulation & Events course! You've gained crucial skills for bringing static web pages to life. You can now build highly interactive user interfaces and respond effectively to user input.</p>
+            <p>Consider exploring topics like Asynchronous JavaScript (Promises, Async/Await), fetching data from APIs, or diving into a front-end framework like React, Vue, or Angular to manage complex application states more efficiently.</p>
+            <p>Keep practicing, keep building, and stay curious!</p>
+        </div>
+
+        <a href="intermediate.html" class="back-button">Back to Intermediate Courses</a>
+    </div>
+</body>
+</html>

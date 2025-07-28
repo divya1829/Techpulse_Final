@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Resume Builder - Live</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0;
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 30px 20px;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+        }
+        header .highlight {
+            background: #ffeb3b;
+            color: #333;
+            border-radius: 8px;
+            padding: 2px 10px;
+        }
+
+        /* Main content area */
+        .builder-container {
+            flex-grow: 1;
+            display: flex;
+            padding: 30px 20px;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 20px auto;
+            background-color: #fdfdfd;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            flex-wrap: wrap;
+        }
+
+        .input-form-section {
+            flex: 2;
+            min-width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow-y: auto;
+            max-height: calc(100vh - 180px);
+            position: sticky;
+            top: 20px;
+        }
+
+        .input-form-section h2 {
+            color: #2575fc;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .input-form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .input-form-section input[type="text"],
+        .input-form-section input[type="number"],
+        .input-form-section input[type="email"],
+        .input-form-section input[type="url"],
+        .input-form-section textarea,
+        .input-form-section select {
+            width: calc(100% - 22px);
+            padding: 12px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .input-form-section textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .input-form-section input[type="text"]:focus,
+        .input-form-section input[type="number"]:focus,
+        .input-form-section input[type="email"]:focus,
+        .input-form-section input[type="url"]:focus,
+        .input-form-section textarea:focus,
+        .input-form-section select:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
+            outline: none;
+        }
+
+        /* Group for related fields */
+        .input-group {
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+        }
+        .input-group label {
+            font-weight: 700;
+            color: #2575fc;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .input-group p {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #777;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        .resume-preview-section {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 400px;
+        }
+
+        .resume-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .action-btn:hover, .action-btn:focus {
+            background: #1a237e;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .resume-paper {
+            background: #fff;
+            width: 100%;
+            max-width: 750px;
+            min-height: 950px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 50px 60px;
+            margin-bottom: 50px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+        }
+
+        .resume-paper h2 {
+            font-size: 2.8rem;
+            color: #1a237e;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .resume-paper h4 {
+            font-size: 1.5rem;
+            color: #424242;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .resume-paper h3 {
+            font-size: 1.8rem;
+            color: #2575fc;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .resume-paper p, .resume-paper ul {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .resume-paper ul {
+            list-style: disc;
+            margin-left: 25px;
+            padding: 0;
+        }
+        .resume-paper li {
+            margin-bottom: 8px;
+        }
+
+        .editable {
+            outline: 2px dashed #ff9800;
+            background: #fff3e0;
+            border-radius: 6px;
+            padding: 3px 6px;
+            min-width: 50px;
+            display: inline-block;
+            transition: background 0.2s ease, outline-color 0.2s ease;
+        }
+
+        .editable:focus {
+            outline: 3px solid #ff5722;
+            background: #ffe0b2;
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
+            outline-offset: 1px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .builder-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .input-form-section {
+                max-height: none;
+                position: static;
+                width: auto;
+            }
+            .resume-preview-section {
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .builder-container {
+                gap: 20px;
+                margin: 10px auto;
+            }
+            .input-form-section {
+                padding: 15px;
+            }
+            .input-form-section h2 {
+                font-size: 1.5rem;
+            }
+            .input-form-section input[type="text"],
+            .input-form-section input[type="number"],
+            .input-form-section input[type="email"],
+            .input-form-section input[type="url"],
+            .input-form-section textarea,
+            .input-form-section select {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            .resume-paper {
+                padding: 30px;
+                min-height: auto;
+            }
+            .resume-paper h2 {
+                font-size: 2.2rem;
+            }
+            .resume-paper h4 {
+                font-size: 1.3rem;
+            }
+            .resume-paper h3 {
+                font-size: 1.6rem;
+            }
+            .resume-paper p, .resume-paper ul {
+                font-size: 1rem;
+            }
+            .action-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .builder-container {
+                padding: 10px;
+                margin: 5px auto;
+                border-radius: 10px;
+            }
+            .input-form-section h2 {
+                font-size: 1.2rem;
+            }
+            .input-form-section label {
+                font-size: 0.9rem;
+            }
+            .input-form-section input[type="text"],
+            .input-form-section input[type="number"],
+            .input-form-section input[type="email"],
+            .input-form-section input[type="url"],
+            .input-form-section textarea,
+            .input-form-section select {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+            .resume-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .action-btn {
+                width: 100%;
+            }
+            .resume-paper {
+                padding: 20px;
+            }
+            .resume-paper h2 {
+                font-size: 1.8rem;
+            }
+            .resume-paper h4 {
+                font-size: 1.1rem;
+            }
+            .resume-paper h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stellar <span class="highlight">Resume Builder</span></h1>
+    </header>
+
+    <div class="builder-container">
+        <div class="input-form-section">
+            <h2>Enter Your Details</h2>
+            <form id="resume-form">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" placeholder="e.g., Jane Doe" required>
+
+                <label for="desiredRole">Desired Role / Headline:</label>
+                <input type="text" id="desiredRole" placeholder="e.g., Senior Software Engineer" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="e.g., janedoe@example.com">
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" placeholder="e.g., +91 98765 43210">
+
+                <label for="linkedin">LinkedIn Profile URL (Optional):</label>
+                <input type="url" id="linkedin" placeholder="e.g., linkedin.com/in/janedoe">
+
+                <label for="aboutMe">About Me / Professional Summary:</label>
+                <textarea id="aboutMe" placeholder="Highly skilled and motivated professional with a passion for..."></textarea>
+
+                <label for="yearsExperience">Years of Relevant Experience:</label>
+                <input type="number" id="yearsExperience" placeholder="e.g., 5" min="0" value="0" required>
+
+                <div id="experience-fields" style="display: none;">
+                    <div class="input-group">
+                        <label>Current/Most Recent Job:</label>
+                        <label for="currentCompany">Company Name:</label>
+                        <input type="text" id="currentCompany" placeholder="e.g., Tech Innovations Inc.">
+                        <label for="currentRole">Your Role:</label>
+                        <input type="text" id="currentRole" placeholder="e.g., Software Engineer">
+                        <label for="currentStartDate">Start Date:</label>
+                        <input type="text" id="currentStartDate" placeholder="e.g., Jan 2022">
+                        <label for="currentEndDate">End Date (or 'Present'):</label>
+                        <input type="text" id="currentEndDate" placeholder="e.g., Present">
+                        <label for="currentAchievements">Key Achievements (comma-separated bullet points):</label>
+                        <textarea id="currentAchievements" placeholder="e.g., Led project X, Increased Y by Z%, Optimized A"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Previous Job (Optional):</label>
+                        <label for="previousCompany">Company Name:</label>
+                        <input type="text" id="previousCompany" placeholder="e.g., Global Solutions Co.">
+                        <label for="previousRole">Your Role:</label>
+                        <input type="text" id="previousRole" placeholder="e.g., Junior Developer">
+                        <label for="previousStartDate">Start Date:</label>
+                        <input type="text" id="previousStartDate" placeholder="e.g., Jun 2018">
+                        <label for="previousEndDate">End Date:</label>
+                        <input type="text" id="previousEndDate" placeholder="e.g., Dec 2021">
+                        <label for="previousAchievements">Key Achievements (comma-separated bullet points):</label>
+                        <textarea id="previousAchievements" placeholder="e.g., Assisted with project A, Learned B"></textarea>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Education:</label>
+                    <p>Enter details for your 10th, 12th/Intermediate, and Graduation. Post-Graduation is optional.</p>
+
+                    <label for="tenthYear">10th Class Passing Year:</label>
+                    <input type="number" id="tenthYear" placeholder="e.g., 2010" min="1900" max="2025">
+                    <label for="tenthSchool">10th Class School Name:</label>
+                    <input type="text" id="tenthSchool" placeholder="e.g., ABC High School">
+
+                    <label for="twelfthYear">Intermediate/12th Passing Year:</label>
+                    <input type="number" id="twelfthYear" placeholder="e.g., 2012" min="1900" max="2025">
+                    <label for="twelfthCollege">Intermediate/12th College Name:</label>
+                    <input type="text" id="twelfthCollege" placeholder="e.g., XYZ Junior College">
+
+                    <label for="gradDegree">Graduation Degree:</label>
+                    <input type="text" id="gradDegree" placeholder="e.g., B.Tech in Computer Science">
+                    <label for="gradYear">Graduation Passing Year:</label>
+                    <input type="number" id="gradYear" placeholder="e.g., 2016" min="1900" max="2025">
+                    <label for="gradUniversity">Graduation University:</label>
+                    <input type="text" id="gradUniversity" placeholder="e.g., University of Technology">
+
+                    <label for="pgDegree">Post-Graduation Degree (Optional):</label>
+                    <input type="text" id="pgDegree" placeholder="e.g., M.Sc in Data Science">
+                    <label for="pgYear">Post-Graduation Passing Year (Optional):</label>
+                    <input type="number" id="pgYear" placeholder="e.g., 2018" min="1900" max="2025">
+                    <label for="pgUniversity">Post-Graduation University (Optional):</label>
+                    <input type="text" id="pgUniversity" placeholder="e.g., National Institute of Science">
+                </div>
+
+                <label for="keySkills">Key Skills (comma-separated):</label>
+                <input type="text" id="keySkills" placeholder="e.g., Project Management, Python, AWS, Communication">
+
+                <label for="templateChoice">Choose a Template:</label>
+                <select id="templateChoice">
+                    <option value="split">Split</option>
+                    <option value="classic">Classic</option>
+                    <option value="modern">Modern</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="resume-preview-section">
+            <div class="resume-actions">
+                <button id="edit-toggle" class="action-btn">Edit Content</button>
+                <button id="download-pdf" class="action-btn">Download PDF</button>
+            </div>
+            <section class="resume-preview" id="resume-preview">
+                </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        const templates = {
+            split: `
+                <div class="resume-paper">
+                    <h2 class="editable" contenteditable="true"></h2>
+                    <h4 class="editable" contenteditable="true"></h4>
+                    <p class="contact-info editable" contenteditable="true"></p>
+                    <h3>About Me</h3>
+                    <p class="editable" contenteditable="true"></p>
+                    <div id="experience-section-split">
+                        <h3>Experience</h3>
+                        <ul id="experience-list-split"></ul>
+                    </div>
+                    <h3>Education</h3>
+                    <ul id="education-list-split"></ul>
+                    <h3>Skills</h3>
+                    <p class="editable" contenteditable="true"></p>
+                </div>
+            `,
+            classic: `
+                <div class="resume-paper">
+                    <h2 class="editable" contenteditable="true" style="color:#b71c1c;"></h2>
+                    <h4 class="editable" contenteditable="true"></h4>
+                    <p class="contact-info editable" contenteditable="true"></p>
+                    <h3>Summary</h3>
+                    <p class="editable" contenteditable="true"></p>
+                    <div id="experience-section-classic">
+                        <h3>Experience</h3>
+                        <ul id="experience-list-classic"></ul>
+                    </div>
+                    <h3>Education</h3>
+                    <ul id="education-list-classic"></ul>
+                    <h3>Skills</h3>
+                    <p class="editable" contenteditable="true"></p>
+                </div>
+            `,
+            modern: `
+                <div class="resume-paper">
+                    <h2 class="editable" contenteditable="true" style="color:#1976d2; letter-spacing:2px;"></h2>
+                    <h4 class="editable" contenteditable="true" style="color:#333;"></h4>
+                    <p class="contact-info editable" contenteditable="true"></p>
+                    <div style="border-left: 4px solid #1976d2; padding-left: 18px; margin: 18px 0;">
+                        <h3 style="color:#1976d2;">Profile</h3>
+                        <p class="editable" contenteditable="true"></p>
+                    </div>
+                    <div id="experience-section-modern" style="margin-bottom: 18px;">
+                        <h3 style="color:#1976d2;">Experience</h3>
+                        <ul id="experience-list-modern"></ul>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <h3 style="color:#1976d2;">Education</h3>
+                        <ul id="education-list-modern"></ul>
+                    </div>
+                    <div>
+                        <h3 style="color:#1976d2;">Skills</h3>
+                        <p class="editable" contenteditable="true"></p>
+                    </div>
+                </div>
+            `
+        };
+
+        let currentTemplateName = 'split'; // Default template
+
+        const resumeForm = document.getElementById('resume-form');
+        const preview = document.getElementById('resume-preview');
+        const editToggle = document.getElementById('edit-toggle');
+        const downloadBtn = document.getElementById('download-pdf');
+        const templateChoiceSelect = document.getElementById('templateChoice');
+        const yearsExperienceInput = document.getElementById('yearsExperience');
+        const experienceFieldsDiv = document.getElementById('experience-fields');
+
+        // Input fields for live updates
+        const inputFields = {
+            fullName: document.getElementById('fullName'),
+            desiredRole: document.getElementById('desiredRole'),
+            email: document.getElementById('email'),
+            phone: document.getElementById('phone'),
+            linkedin: document.getElementById('linkedin'),
+            aboutMe: document.getElementById('aboutMe'),
+            yearsExperience: yearsExperienceInput,
+            currentCompany: document.getElementById('currentCompany'),
+            currentRole: document.getElementById('currentRole'),
+            currentStartDate: document.getElementById('currentStartDate'),
+            currentEndDate: document.getElementById('currentEndDate'),
+            currentAchievements: document.getElementById('currentAchievements'),
+            previousCompany: document.getElementById('previousCompany'),
+            previousRole: document.getElementById('previousRole'),
+            previousStartDate: document.getElementById('previousStartDate'),
+            previousEndDate: document.getElementById('previousEndDate'),
+            previousAchievements: document.getElementById('previousAchievements'),
+            tenthYear: document.getElementById('tenthYear'),
+            tenthSchool: document.getElementById('tenthSchool'),
+            twelfthYear: document.getElementById('twelfthYear'),
+            twelfthCollege: document.getElementById('twelfthCollege'),
+            gradDegree: document.getElementById('gradDegree'),
+            gradYear: document.getElementById('gradYear'),
+            gradUniversity: document.getElementById('gradUniversity'),
+            pgDegree: document.getElementById('pgDegree'),
+            pgYear: document.getElementById('pgYear'),
+            pgUniversity: document.getElementById('pgUniversity'),
+            keySkills: document.getElementById('keySkills')
+        };
+
+        function setEditable(editable) {
+            document.querySelectorAll('.resume-paper .editable').forEach(el => {
+                el.setAttribute('contenteditable', editable ? 'true' : 'false');
+                if (editable) {
+                    el.classList.add('editable');
+                } else {
+                    el.classList.remove('editable');
+                }
+            });
+        }
+
+        function generateAboutMeText(data) {
+            const yearsExpPart = data.yearsExperience > 0 ? `${data.yearsExperience} years of experience` : 'an enthusiastic and driven professional';
+            const rolePart = data.desiredRole ? `a dedicated ${data.desiredRole}` : 'a highly motivated individual';
+            const skillsPart = data.keySkills ? `with expertise in ${data.keySkills.split(',')[0].trim()}` : '';
+            const passionPart = `passionate about ${data.desiredRole ? data.desiredRole.toLowerCase().split(' ').pop() + ' and innovation' : 'growth and impactful solutions'}`;
+
+            return data.aboutMe || `A results-driven and analytical ${rolePart} with ${yearsExpPart}, ${passionPart} and ${skillsPart}. Proven ability to contribute effectively in dynamic environments. Seeking to leverage skills to achieve organizational goals.`;
+        }
+
+        function populateTemplate(templateName, data) {
+            const resumePaper = preview.querySelector('.resume-paper');
+            const fullNameElement = resumePaper.querySelector('h2.editable');
+            const desiredRoleElement = resumePaper.querySelector('h4.editable');
+            const contactInfoElement = resumePaper.querySelector('.contact-info.editable');
+
+            if (fullNameElement) fullNameElement.textContent = data.fullName || 'Your Full Name';
+            if (desiredRoleElement) desiredRoleElement.textContent = data.desiredRole || 'Desired Role / Headline';
+
+            let contactHtml = '';
+            if (data.email) contactHtml += `<a href="mailto:${data.email}" target="_blank">${data.email}</a>`;
+            if (data.phone) contactHtml += (contactHtml ? ' | ' : '') + data.phone;
+            if (data.linkedin) contactHtml += (contactHtml ? ' | ' : '') + `<a href="${data.linkedin}" target="_blank">LinkedIn</a>`;
+            if (contactInfoElement) contactInfoElement.innerHTML = contactHtml || 'Your Email | Your Phone | LinkedIn/Portfolio';
+
+            let aboutMeContent = generateAboutMeText(data);
+            if (templateName === 'split' || templateName === 'classic') {
+                const aboutMeParagraph = resumePaper.querySelector('h3 ~ p.editable');
+                if (aboutMeParagraph) aboutMeParagraph.textContent = aboutMeContent;
+            } else if (templateName === 'modern') {
+                const profileParagraph = resumePaper.querySelector('div[style*="border-left"] p.editable');
+                if (profileParagraph) profileParagraph.textContent = aboutMeContent;
+            }
+
+            // Populate Experience section conditionally
+            const experienceSection = resumePaper.querySelector(`#experience-section-${templateName}`);
+            const experienceList = resumePaper.querySelector(`#experience-list-${templateName}`);
+
+            if (data.yearsExperience > 0) {
+                if (experienceSection) experienceSection.style.display = 'block'; // Show section
+                if (experienceList) {
+                    experienceList.innerHTML = ''; // Clear existing
+
+                    // Current Job
+                    if (data.currentCompany && data.currentRole && data.currentStartDate) {
+                        let achievementsHtml = '';
+                        if (data.currentAchievements) {
+                            achievementsHtml = data.currentAchievements.split(',').map(item => `&bull; ${item.trim()}`).join('<br>');
+                        }
+                        experienceList.innerHTML += `
+                            <li class="editable" contenteditable="true">
+                                <strong>${data.currentCompany}</strong> - ${data.currentRole} (${data.currentStartDate} - ${data.currentEndDate || 'Present'})<br>
+                                ${achievementsHtml}
+                            </li>
+                        `;
+                    } else if (experienceList.children.length === 0) { // Fallback if no current job data
+                         experienceList.innerHTML += `
+                            <li class="editable" contenteditable="true">
+                                <strong>[Your Current Company Name]</strong> - [Your Current Role] (Start Date - Present)<br>
+                                &bull; Achieved [quantifiable result 1], by implementing [action/strategy].<br>
+                                &bull; Led [project/initiative], resulting in [impact 2] and [impact 3].<br>
+                                &bull; Developed and optimized [system/process], improving [metric] by [percentage]%.
+                            </li>
+                        `;
+                    }
+
+                    // Previous Job (optional)
+                    if (data.previousCompany && data.previousRole && data.previousStartDate) {
+                        let prevAchievementsHtml = '';
+                        if (data.previousAchievements) {
+                            prevAchievementsHtml = data.previousAchievements.split(',').map(item => `&bull; ${item.trim()}`).join('<br>');
+                        }
+                        experienceList.innerHTML += `
+                            <li class="editable" contenteditable="true">
+                                <strong>${data.previousCompany}</strong> - ${data.previousRole} (${data.previousStartDate} - ${data.previousEndDate || 'End Date'})<br>
+                                ${prevAchievementsHtml}
+                            </li>
+                        `;
+                    }
+                }
+            } else {
+                if (experienceSection) experienceSection.style.display = 'none'; // Hide section if no experience
+            }
+
+            // Populate Education section
+            const educationList = resumePaper.querySelector(`#education-list-${templateName}`);
+            if (educationList) {
+                educationList.innerHTML = ''; // Clear existing
+                if (data.pgDegree && data.pgYear && data.pgUniversity) {
+                    educationList.innerHTML += `<li class="editable" contenteditable="true"><strong>${data.pgUniversity}</strong> - ${data.pgDegree} (${data.pgYear})</li>`;
+                }
+                if (data.gradDegree && data.gradYear && data.gradUniversity) {
+                    educationList.innerHTML += `<li class="editable" contenteditable="true"><strong>${data.gradUniversity}</strong> - ${data.gradDegree} (${data.gradYear})</li>`;
+                }
+                if (data.twelfthYear && data.twelfthCollege) {
+                    educationList.innerHTML += `<li class="editable" contenteditable="true"><strong>${data.twelfthCollege}</strong> - Intermediate/12th (${data.twelfthYear})</li>`;
+                }
+                if (data.tenthYear && data.tenthSchool) {
+                    educationList.innerHTML += `<li class="editable" contenteditable="true"><strong>${data.tenthSchool}</strong> - 10th Class (${data.tenthYear})</li>`;
+                }
+            }
+
+            // Populate Skills section
+            const allPEditable = resumePaper.querySelectorAll('p.editable');
+            let skillsParagraph = null;
+            if (templateName === 'split' || templateName === 'classic') {
+                skillsParagraph = Array.from(allPEditable).find(p => p.textContent.includes('Skills:') || p.previousElementSibling?.tagName === 'H3' && p.previousElementSibling.textContent.includes('Skills'));
+                if (!skillsParagraph) skillsParagraph = allPEditable[allPEditable.length - 1]; // Fallback
+            } else if (templateName === 'modern') {
+                const skillsDiv = resumePaper.querySelector('div:last-child');
+                if (skillsDiv) {
+                    skillsParagraph = skillsDiv.querySelector('p.editable');
+                }
+            }
+
+            if (skillsParagraph) {
+                skillsParagraph.innerHTML = `<strong>Skills:</strong> ${data.keySkills || 'Add your key skills here, separated by commas.'}`;
+            }
+        }
+
+
+        function renderResume() {
+            const data = {
+                fullName: inputFields.fullName.value,
+                desiredRole: inputFields.desiredRole.value,
+                email: inputFields.email.value,
+                phone: inputFields.phone.value,
+                linkedin: inputFields.linkedin.value,
+                aboutMe: inputFields.aboutMe.value,
+                yearsExperience: parseInt(inputFields.yearsExperience.value) || 0,
+                currentCompany: inputFields.currentCompany.value,
+                currentRole: inputFields.currentRole.value,
+                currentStartDate: inputFields.currentStartDate.value,
+                currentEndDate: inputFields.currentEndDate.value,
+                currentAchievements: inputFields.currentAchievements.value,
+                previousCompany: inputFields.previousCompany.value,
+                previousRole: inputFields.previousRole.value,
+                previousStartDate: inputFields.previousStartDate.value,
+                previousEndDate: inputFields.previousEndDate.value,
+                previousAchievements: inputFields.previousAchievements.value,
+                tenthYear: inputFields.tenthYear.value,
+                tenthSchool: inputFields.tenthSchool.value,
+                twelfthYear: inputFields.twelfthYear.value,
+                twelfthCollege: inputFields.twelfthCollege.value,
+                gradDegree: inputFields.gradDegree.value,
+                gradYear: inputFields.gradYear.value,
+                gradUniversity: inputFields.gradUniversity.value,
+                pgDegree: inputFields.pgDegree.value,
+                pgYear: inputFields.pgYear.value,
+                pgUniversity: inputFields.pgUniversity.value,
+                keySkills: inputFields.keySkills.value,
+            };
+            
+            const selectedTemplate = templateChoiceSelect.value;
+            currentTemplateName = selectedTemplate; // Keep track of current template
+
+            preview.innerHTML = templates[selectedTemplate];
+            populateTemplate(selectedTemplate, data);
+            setEditable(false); // Default to locked on re-render
+            if (editToggle) {
+                editToggle.textContent = 'Edit Content';
+                editToggle.dataset.editing = 'false';
+            }
+        }
+
+        // --- Event Listeners ---
+
+        // Listen for changes on all input fields to trigger live updates
+        for (const key in inputFields) {
+            inputFields[key].addEventListener('input', renderResume);
+        }
+
+        // Toggle experience fields visibility based on years of experience
+        yearsExperienceInput.addEventListener('input', () => {
+            const years = parseInt(yearsExperienceInput.value);
+            if (years > 0) {
+                experienceFieldsDiv.style.display = 'block';
+            } else {
+                experienceFieldsDiv.style.display = 'none';
+            }
+            renderResume(); // Re-render resume to hide/show section
+        });
+
+
+        // Listen for template selection changes
+        templateChoiceSelect.addEventListener('change', renderResume);
+
+        // Edit/Lock Toggle
+        if (editToggle) {
+            editToggle.addEventListener('click', () => {
+                const editing = editToggle.dataset.editing === 'true';
+                if (editing) {
+                    setEditable(false);
+                    editToggle.textContent = 'Edit Content';
+                    editToggle.dataset.editing = 'false';
+                } else {
+                    setEditable(true);
+                    editToggle.textContent = 'Lock Content';
+                    editToggle.dataset.editing = 'true';
+                }
+            });
+        }
+
+        // Download PDF
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                setEditable(false); // Lock editing before download for best result
+                if (editToggle) {
+                    editToggle.textContent = 'Edit Content';
+                    editToggle.dataset.editing = 'false';
+                }
+                const element = document.querySelector('.resume-paper');
+                if (element) {
+                    html2pdf().set({
+                        margin: 0.5,
+                        filename: 'resume.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    }).from(element).save();
+                }
+            });
+        }
+
+        // Initial render when the page loads
+        window.onload = () => {
+            // Set initial state of experience fields based on default value (0)
+            yearsExperienceInput.dispatchEvent(new Event('input'));
+            renderResume();
+        };
+    </script>
+</body>
+</html>

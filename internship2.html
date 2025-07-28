@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship Opportunities | Tech Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e9f0f7; /* Light, cool background */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #004080; /* Darker blue for header */
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content Wrapper */
+        .container {
+            max-width: 1200px; /* Wider container for layout */
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        /* Section Description */
+        .intro-text {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 18px;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .intro-text p {
+            margin-bottom: 15px;
+        }
+
+        /* Domain Filter Tabs */
+        .domain-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .filter-tab {
+            background-color: #f0f8ff; /* Light blue */
+            color: #004080;
+            padding: 12px 25px;
+            border: 1px solid #cce0ff;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tab:hover {
+            background-color: #e0e9f4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-tab.active {
+            background-color: #0056b3;
+            color: #fff;
+            border-color: #003366;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Internship Platform Cards */
+        .platform-grid {
+            display: none; /* Hidden by default */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding-top: 20px;
+        }
+        .platform-grid.active {
+            display: grid; /* Show when active */
+        }
+
+        .platform-card {
+            background: #fdfdfd;
+            border: 1px solid #e0e9f0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push button to bottom */
+        }
+
+        .platform-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .platform-card h3 {
+            font-size: 24px;
+            color: #003366;
+            margin-bottom: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .platform-card p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Make description take available space */
+        }
+
+        .platform-card .action-link {
+            display: inline-block;
+            background-color: #27ae60; /* Green button */
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            align-self: flex-start; /* Align button to start */
+        }
+
+        .platform-card .action-link:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            header {
+                font-size: 28px;
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .intro-text {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            .domain-filters {
+                gap: 10px;
+                margin-bottom: 30px;
+                justify-content: space-around;
+            }
+            .filter-tab {
+                flex: 1 1 45%; /* Two tabs per row */
+                font-size: 14px;
+                padding: 10px 15px;
+                text-align: center;
+                justify-content: center;
+            }
+            .platform-grid {
+                grid-template-columns: 1fr; /* Stack cards on small screens */
+                gap: 25px;
+            }
+            .platform-card h3 {
+                font-size: 20px;
+            }
+            .platform-card p {
+                font-size: 15px;
+            }
+            .platform-card .action-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>✨ Internship Opportunities</header>
+
+    <div class="container">
+        <div class="intro-text">
+            <p>Ready to gain real-world experience? Tech Pulse curates the best internship opportunities from leading platforms, categorized by domain, to help you find your perfect match in India's dynamic tech industry.</p>
+            <p>Explore below and click on a domain to see recommended platforms and start your application journey!</p>
+        </div>
+
+        <div class="domain-filters">
+            <button class="filter-tab active" data-domain="all"><i class="fas fa-th-large"></i> All Domains</button>
+            <button class="filter-tab" data-domain="software-dev"><i class="fas fa-laptop-code"></i> Software Development</button>
+            <button class="filter-tab" data-domain="data-science"><i class="fas fa-chart-line"></i> Data Science & AI</button>
+            <button class="filter-tab" data-domain="web-dev"><i class="fas fa-globe"></i> Web Development</button>
+            <button class="filter-tab" data-domain="ui-ux"><i class="fas fa-palette"></i> UI/UX Design</button>
+            <button class="filter-tab" data-domain="cybersecurity"><i class="fas fa-shield-alt"></i> Cybersecurity</button>
+            <button class="filter-tab" data-domain="cloud"><i class="fas fa-cloud"></i> Cloud Computing</button>
+            <button class="filter-tab" data-domain="devops"><i class="fas fa-cogs"></i> DevOps</button>
+            <button class="filter-tab" data-domain="others"><i class="fas fa-ellipsis-h"></i> Other Tech Roles</button>
+        </div>
+
+        <div id="all-domains" class="platform-grid active">
+            <div class="platform-card">
+                <h3><i class="fab fa-linkedin"></i> LinkedIn</h3>
+                <p>A powerful network for professionals. Find internships, connect with recruiters, and leverage your connections.</p>
+                <a href="https://www.linkedin.com/jobs/internship-jobs-in-india/" target="_blank" class="action-link">Explore on LinkedIn</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-briefcase"></i> Internshala</h3>
+                <p>One of India's most popular platforms specifically for internships across various domains and cities. Offers skill-based filters.</p>
+                <a href="https://internshala.com/internships/work-from-home-internships/" target="_blank" class="action-link">Explore on Internshala</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-search"></i> Indeed</h3>
+                <p>A global job search engine with a vast database of internship opportunities in India, allowing filters by location, industry, etc.</p>
+                <a href="https://in.indeed.com/internship-jobs" target="_blank" class="action-link">Explore on Indeed</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-rocket"></i> Naukri.com</h3>
+                <p>A leading Indian job portal with a dedicated section for internships, including opportunities from top companies.</p>
+                <a href="https://www.naukri.com/internship-jobs" target="_blank" class="action-link">Explore on Naukri</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-users"></i> LetsIntern</h3>
+                <p>Known for its user-friendly interface, offering internships across engineering, management, media, design, and more.</p>
+                <a href="https://www.letsintern.com/" target="_blank" class="action-link">Explore on LetsIntern</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-building"></i> Company Career Pages</h3>
+                <p>Directly check the career sections of major tech companies (e.g., Google Careers, Microsoft India, IBM Careers) for their specific internship programs.</p>
+                <a href="https://careers.google.com/students/" target="_blank" class="action-link">Check Google Careers</a>
+            </div>
+        </div>
+
+        <div id="software-dev" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fab fa-google"></i> Google Careers</h3>
+                <p>Offers highly coveted Software Engineering internships. Look for programs like STEP, Google Summer of Code, etc.</p>
+                <a href="https://careers.google.com/students/" target="_blank" class="action-link">Explore Google Tech</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fab fa-microsoft"></i> Microsoft India Careers</h3>
+                <p>Various software engineering roles, including those focused on AI, Cloud, and product development.</p>
+                <a href="https://careers.microsoft.com/v2/global/en/students-and-graduates.html" target="_blank" class="action-link">Explore Microsoft Tech</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fab fa-ibm"></i> IBM Careers (India)</h3>
+                <p>Internships in various software engineering domains, including AI, Cloud, and Enterprise Solutions.</p>
+                <a href="https://www.ibm.com/in-en/careers/internships" target="_blank" class="action-link">Explore IBM Tech</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-code"></i> Internshala</h3>
+                <p>A vast number of software development internships, including Python, Java, C++, Android, iOS, and more.</p>
+                <a href="https://internshala.com/internships/software-development-internship/" target="_blank" class="action-link">Find Software Dev Internships</a>
+            </div>
+        </div>
+
+        <div id="data-science" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-chart-pie"></i> JPMorganChase & Co.</h3>
+                <p>Offers Data & Analytics programs focusing on data science, machine learning, and quantitative finance.</p>
+                <a href="https://careers.jpmorgan.com/global/en/students/programs/data-analytics-opportunities" target="_blank" class="action-link">Explore JPMC Data</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-brain"></i> 360DigiTMG</h3>
+                <p>Known for data science internship programs with practical experience and certifications. Often includes project work.</p>
+                <a href="https://360digitmg.com/india/data-science-internship" target="_blank" class="action-link">Explore 360DigiTMG</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-cube"></i> Keka (Satsure)</h3>
+                <p>Offers Data Scientist Intern roles, sometimes focusing on geospatial data analysis and remote sensing applications.</p>
+                <a href="https://satsure.keka.com/careers/jobdetails/26859" target="_blank" class="action-link">Explore Keka Data</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-robot"></i> Internshala (AI/ML)</h3>
+                <p>Look for AI, Machine Learning, and Data Analyst internships, often with remote options.</p>
+                <a href="https://internshala.com/internships/artificial-intelligence-internship/" target="_blank" class="action-link">Find AI/ML Internships</a>
+            </div>
+        </div>
+
+        <div id="web-dev" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-laptop-code"></i> Internshala</h3>
+                <p>Comprehensive listings for Front-end, Back-end, and Full-stack web development internships across various technologies.</p>
+                <a href="https://internshala.com/internships/web-development-internship/" target="_blank" class="action-link">Find Web Dev Internships</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-network-wired"></i> Internpe</h3>
+                <p>Focuses on IT & Training, providing web development internships with end-to-end training and projects.</p>
+                <a href="https://internpe.in/web-development-internship/" target="_blank" class="action-link">Explore Internpe Web Dev</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-lightbulb"></i> Startup Job Boards</h3>
+                <p>Web development roles are common in startups. Check platforms like AngelList or company-specific career pages for dynamic opportunities.</p>
+                <a href="https://angel.co/jobs" target="_blank" class="action-link">Check AngelList</a>
+            </div>
+        </div>
+
+        <div id="ui-ux" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-pencil-ruler"></i> Internshala (UI/UX)</h3>
+                <p>Find internships for UI Designer, UX Researcher, Graphic Designer, and Product Designer roles.</p>
+                <a href="https://internshala.com/internships/ui-ux-design-internship/" target="_blank" class="action-link">Find UI/UX Internships</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-sketch"></i> ADPList</h3>
+                <p>While not strictly internships, it's great for finding mentors in UI/UX and sometimes leads to opportunities or project work.</p>
+                <a href="https://adplist.org/" target="_blank" class="action-link">Explore ADPList</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-paint-brush"></i> Design-focused Agencies</h3>
+                <p>Many design agencies offer internships. Look up prominent design firms in India and check their career pages directly.</p>
+                <a href="#" onclick="alert('Search for top design agencies in India and visit their career pages directly!')" class="action-link">Find Design Agencies</a>
+            </div>
+        </div>
+
+        <div id="cybersecurity" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-lock"></i> Internshala (Cybersecurity)</h3>
+                <p>Listings for Ethical Hacking, Cybersecurity Analyst, and Information Security internships.</p>
+                <a href="https://internshala.com/internships/cyber-security-internship/" target="_blank" class="action-link">Find Cybersecurity Internships</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-building"></i> Major Tech Companies</h3>
+                <p>Companies like TCS, Wipro, Infosys, and dedicated security firms often have cybersecurity internship programs.</p>
+                <a href="https://www.tcs.com/careers/students" target="_blank" class="action-link">Check TCS Careers</a>
+            </div>
+        </div>
+
+        <div id="cloud" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fab fa-aws"></i> AWS Careers</h3>
+                <p>Explore student programs and internships specifically for Cloud Engineering, Solutions Architecture, and related roles.</p>
+                <a href="https://www.amazon.jobs/en/job_categories/students-and-graduates" target="_blank" class="action-link">Explore AWS Cloud</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fab fa-google"></i> Google Cloud Internships</h3>
+                <p>Opportunities for students interested in cloud infrastructure, platform development, and related services.</p>
+                <a href="https://careers.google.com/students/" target="_blank" class="action-link">Explore Google Cloud</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-cloud-upload-alt"></i> Internshala (Cloud)</h3>
+                <p>Listings for Cloud Computing, Azure, AWS, and Google Cloud internships.</p>
+                <a href="https://internshala.com/internships/cloud-computing-internship/" target="_blank" class="action-link">Find Cloud Internships</a>
+            </div>
+        </div>
+
+        <div id="devops" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-tools"></i> Internshala (DevOps)</h3>
+                <p>Find DevOps Engineer, SRE (Site Reliability Engineer), and Automation Engineer internships.</p>
+                <a href="https://internshala.com/internships/devops-internship/" target="_blank" class="action-link">Find DevOps Internships</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fab fa-atlassian"></i> Atlassian Careers</h3>
+                <p>Offers internships in various engineering roles, including those related to DevOps and developer experience.</p>
+                <a href="https://www.atlassian.com/company/careers/early-careers" target="_blank" class="action-link">Explore Atlassian</a>
+            </div>
+        </div>
+
+        <div id="others" class="platform-grid">
+            <div class="platform-card">
+                <h3><i class="fas fa-network-wired"></i> Freshersworld</h3>
+                <p>A job portal specifically for freshers, also listing internship opportunities across various tech and non-tech domains.</p>
+                <a href="https://www.freshersworld.com/internship-jobs" target="_blank" class="action-link">Explore Freshersworld</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-university"></i> AICTE National Internship Portal</h3>
+                <p>Government initiative aiming to provide internships across various fields in public and private sectors.</p>
+                <a href="https://internship.aicte-india.org/" target="_blank" class="action-link">Explore AICTE Portal</a>
+            </div>
+            <div class="platform-card">
+                <h3><i class="fas fa-lightbulb"></i> Startup India Portal</h3>
+                <p>Often lists opportunities in innovative startups that might not be on larger job boards, including unique tech roles.</p>
+                <a href="https://www.startupindia.gov.in/content/sih/startupgov/opportunities.html" target="_blank" class="action-link">Explore Startup India</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const platformGrids = document.querySelectorAll('.platform-grid');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and grids
+                filterTabs.forEach(t => t.classList.remove('active'));
+                platformGrids.forEach(grid => grid.classList.remove('active'));
+
+                // Add active class to the clicked tab
+                tab.classList.add('active');
+
+                // Get the data-domain from the clicked tab
+                const selectedDomain = tab.dataset.domain;
+
+                // Show the corresponding platform grid
+                const targetGrid = document.getElementById(selectedDomain);
+                if (targetGrid) {
+                    targetGrid.classList.add('active');
+                }
+            });
+        });
+
+        // Optional: Pre-select a domain or make "All Domains" active on load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.filter-tab[data-domain="all"]').click();
+        });
+    </script>
+
+</body>
+</html>

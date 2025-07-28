@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Actionable Reminders | Tech Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e9f0f7; /* Lighter, cooler background */
+            color: #333;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #004080; /* Darker blue for header */
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden; /* For pseudo-element background */
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,64,128,0.9), rgba(0,80,160,0.7));
+            z-index: -1;
+            transform: skewY(-2deg);
+            transform-origin: bottom right;
+        }
+
+
+        /* Main Content Wrapper */
+        .main-content {
+            max-width: 900px; /* Wider container for feed */
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        /* Filters/Tabs */
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .filter-btn:hover {
+            color: #0056b3;
+            background-color: #f7f7f7;
+        }
+
+        .filter-btn.active {
+            color: #004080;
+            border-bottom: 3px solid #004080;
+            background-color: #f0f8ff;
+        }
+
+        /* Reminder List/Feed */
+        .reminder-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between reminder items */
+        }
+
+        .reminder-item {
+            background: #fdfdfd;
+            border: 1px solid #e0e9f0;
+            border-left: 6px solid #4a90e2; /* Default blue for actionable items */
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reminder-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Item Statuses (Border Colors & Styles) */
+        .reminder-item.status-due {
+            border-left-color: #d9534f; /* Red */
+        }
+        .reminder-item.status-pending {
+            border-left-color: #f0ad4e; /* Orange */
+        }
+        .reminder-item.status-new {
+            border-left-color: #5cb85c; /* Green */
+        }
+        .reminder-item.status-info {
+            border-left-color: #5bc0de; /* Light Blue */
+        }
+        .reminder-item.status-completed {
+            border-left-color: #777; /* Gray */
+            opacity: 0.7;
+            text-decoration: line-through;
+            background-color: #f5f5f5;
+        }
+
+        .reminder-item.status-completed .item-actions button {
+            display: none; /* Hide buttons when completed */
+        }
+
+        /* Item Content */
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-right: 15px; /* Space for date */
+            flex-grow: 1;
+        }
+
+        .item-date {
+            font-size: 14px;
+            color: #7f8c8d;
+            white-space: nowrap; /* Prevent date from wrapping */
+        }
+
+        .item-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .item-status {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            align-self: flex-start; /* Keeps status aligned left if needed */
+            margin-bottom: 10px;
+        }
+
+        .status-tag-due { background-color: #f2dede; color: #a94442; }
+        .status-tag-pending { background-color: #fcf8e3; color: #8a6d3b; }
+        .status-tag-new { background-color: #dff0d8; color: #3c763d; }
+        .status-tag-info { background-color: #d9edf7; color: #31708f; }
+        .status-tag-completed { background-color: #ececec; color: #777; }
+
+
+        .item-actions {
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+            gap: 10px;
+            margin-top: auto; /* Push actions to the bottom */
+        }
+
+        .action-btn {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #003366;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.mark-done {
+            background-color: #28a745; /* Green for mark done */
+        }
+        .action-btn.mark-done:hover {
+            background-color: #218838;
+        }
+        .action-btn.view-details {
+            background-color: #6c757d; /* Gray for view details */
+        }
+        .action-btn.view-details:hover {
+            background-color: #545b62;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            header {
+                font-size: 28px;
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+            .filters {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .filter-btn {
+                flex-basis: 45%; /* Two buttons per row */
+                margin: 0;
+            }
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 5px;
+            }
+            .item-title {
+                margin-bottom: 5px;
+                font-size: 18px;
+            }
+            .item-date {
+                font-size: 13px;
+            }
+            .item-description {
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+            .item-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-btn {
+                width: 100%; /* Full width buttons */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>✨ Your Actionable Reminders</header>
+
+    <div class="main-content">
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Reminders</button>
+            <button class="filter-btn" data-filter="pending">Pending Tasks</button>
+            <button class="filter-btn" data-filter="completed">Completed Tasks</button>
+            <button class="filter-btn" data-filter="new">New Info</button>
+        </div>
+
+        <div class="reminder-list" id="reminderList">
+            </div>
+    </div>
+
+    <script>
+        // Data for reminders - more structured for dynamic display
+        let reminders = [
+            {
+                id: '1',
+                title: 'Submit Final Project',
+                date: 'Due: Aug 15, 2025',
+                description: 'Your Full-Stack Career Guidance project is due soon. Ensure all features are integrated.',
+                status: 'due'
+            },
+            {
+                id: '2',
+                title: 'Prepare for Weekly Code Review',
+                date: 'Mon, 5 PM IST',
+                description: 'Outline your progress and any challenges faced for the team code review session.',
+                status: 'pending'
+            },
+            {
+                id: '3',
+                title: 'Update Resume for Infosys Drive',
+                date: 'Drive: Aug 20, 2025',
+                description: 'Refine your resume and practice aptitude/coding questions for the Infosys placement drive.',
+                status: 'due'
+            },
+            {
+                id: '4',
+                title: 'Attend UI/UX Design Workshop',
+                date: 'Aug 10, 2025',
+                description: 'Join the Figma workshop to learn creative design practices. Limited spots!',
+                status: 'new'
+            },
+            {
+                id: '5',
+                title: 'Complete React Fundamentals Module 3',
+                date: 'Due: Jul 30, 2025',
+                description: 'Finish "React State Management" module to unlock the next quiz and progress in your learning path.',
+                status: 'pending'
+            },
+            {
+                id: '6',
+                title: 'Take Advanced JavaScript Quiz',
+                date: 'Available after: Aug 1, 2025',
+                description: 'Test your advanced JS skills! Requires completion of "Advanced JS Concepts" course.',
+                status: 'new'
+            },
+            {
+                id: '7',
+                title: 'Explore New Course: AI/ML Fundamentals',
+                date: 'Added Today!',
+                description: 'A new cutting-edge course on AI and Machine Learning has been added to the platform.',
+                status: 'new'
+            },
+            {
+                id: '8',
+                title: 'Accept Team Project Invitation',
+                date: 'From: "Web Wizards"',
+                description: 'You\'ve been invited to collaborate on the "E-commerce Platform Redesign" project. Join the team!',
+                status: 'pending'
+            },
+            {
+                id: '9',
+                title: 'Review Project Feedback: "CareerPath AI"',
+                date: 'Received: Jul 24, 2025',
+                description: 'Your project "CareerPath AI" received new feedback and likes! Check it out and improve.',
+                status: 'new'
+            },
+            {
+                id: '10',
+                title: 'Apply for Front-End Dev Internship',
+                date: 'Deadline: Aug 5, 2025',
+                description: 'An internship at "Tech Solutions Inc." matches your profile. Apply before the deadline!',
+                status: 'due'
+            },
+            {
+                id: '11',
+                title: 'Use AI Chatbot for Resume Tips',
+                date: 'Anytime',
+                description: 'Ask our AI Chatbot for personalized advice to build a stronger resume.',
+                status: 'info'
+            },
+            {
+                id: '12',
+                title: 'Retake Python Data Structures Quiz',
+                date: 'Score: 60% (Below pass)',
+                description: 'You can retake the "Python Data Structures" quiz. Review the related modules first.',
+                status: 'pending'
+            }
+        ];
+
+        const reminderListDiv = document.getElementById('reminderList');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        // Function to render reminders
+        function renderReminders(filter = 'all') {
+            reminderListDiv.innerHTML = ''; // Clear current list
+            const filteredReminders = reminders.filter(reminder => {
+                if (filter === 'all') return true;
+                return reminder.status === filter;
+            });
+            if (filteredReminders.length === 0) {
+                reminderListDiv.innerHTML = '<p style="text-align: center; color: #777; padding: 30px;">No reminders found for this category.</p>';
+                return;
+            }
+            filteredReminders.forEach(reminder => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `reminder-item status-${reminder.status} ${reminder.status === 'completed' ? 'status-completed' : ''}`;
+                itemDiv.dataset.id = reminder.id; // Store ID for JS manipulation
+
+                // Determine the text for the status tag and its class
+                let statusText = '';
+                let statusClass = '';
+                switch(reminder.status) {
+                    case 'due': statusText = 'Due Soon'; statusClass = 'status-tag-due'; break;
+                    case 'pending': statusText = 'Pending Action'; statusClass = 'status-tag-pending'; break;
+                    case 'new': statusText = 'New Information'; statusClass = 'status-tag-new'; break;
+                    case 'info': statusText = 'Information'; statusClass = 'status-tag-info'; break;
+                    case 'completed': statusText = 'Completed'; statusClass = 'status-tag-completed'; break;
+                    default: statusText = 'Task'; statusClass = '';
+                }
+
+
+                itemDiv.innerHTML = `
+                    <div class="item-header">
+                        <h3 class="item-title">${reminder.title}</h3>
+                        <span class="item-date">${reminder.date}</span>
+                    </div>
+                    <span class="item-status ${statusClass}">${statusText}</span>
+                    <p class="item-description">${reminder.description}</p>
+                    <div class="item-actions">
+                        ${reminder.status !== 'completed' ?
+                            `<button class="action-btn mark-done" onclick="markAsDone('${reminder.id}')">Mark as Done</button>
+                             <button class="action-btn view-details" onclick="viewDetails('${reminder.id}')">View Details</button>`
+                            : ''
+                        }
+                    </div>
+                `;
+                reminderListDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Function to mark a reminder as done
+        function markAsDone(id) {
+            const index = reminders.findIndex(r => r.id === id);
+            if (index !== -1) {
+                reminders[index].status = 'completed';
+                renderReminders(document.querySelector('.filter-btn.active').dataset.filter); // Re-render with current filter
+            }
+            alert(`Reminder "${reminders[index].title}" marked as done!`); // Simple feedback
+            // In a real app, send this update to a backend database.
+        }
+
+        // Function to simulate viewing details
+        function viewDetails(id) {
+            const reminder = reminders.find(r => r.id === id);
+            if (reminder) {
+                alert(`Viewing details for: ${reminder.title}\nDescription: ${reminder.description}\n(This would navigate to a specific page or open a modal in a full app.)`);
+            }
+        }
+
+        // Event listeners for filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                event.target.classList.add('active');
+                // Render reminders based on the clicked filter
+                renderReminders(event.target.dataset.filter);
+            });
+        });
+
+        // Initial render when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderReminders('all');
+        });
+
+    </script>
+
+</body>
+</html>

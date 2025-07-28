@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Pulse - Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #1f1b2e, #2a2550); /* dull background */
+            color: #f0f0f0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), 50% rgba(0, 0, 0, 0.155)); /* adds dullness */
+            z-index: -1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #dc89f8;
+            background: linear-gradient(to right, #8e44ad, #6c3483);
+            padding: 6px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ffeaa7, #d2b4de);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #e0c8ff;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-buttons button {
+            margin-left: 10px;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .signup-btn {
+            background-color: #dc89f8;
+            color: white;
+        }
+
+        .hero {
+            padding: 60px 30px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #81ecec, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #cccccc;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .search-upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .search-upload input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+            background: #2d2d44;
+            color: #fff;
+        }
+
+        .upload-btn,
+        .upload-btn1 {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            background-color: #636e72;
+            color: #fff;
+        }
+
+        .upload-btn1 {
+            background: linear-gradient(to right, #00cec9, #6c5ce7);
+            color: white;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+
+        .category-tabs button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e0c8ff;
+            font-weight: normal;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-tabs button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .category-tabs button.active {
+            background-color: #4834d4;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .featured-projects,
+        .all-projects {
+            margin: 50px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .featured-projects h2,
+        .all-projects h2 {
+            color: #ffeaa7;
+            font-size: 1.5rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* --- Project Card Styling (Modified to match image_4d48c3.jpg) --- */
+        .project-card {
+            background-color: #3c316a; /* Darker purple from image */
+            color: #e0c8ff; /* Lighter text for contrast */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* Stronger shadow */
+            overflow: hidden; /* Ensures image and badge stay within borders */
+            display: flex; /* Use flex for vertical stacking of content */
+            flex-direction: column;
+            /* Animation properties */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.3s ease;
+        }
+
+        .project-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Enhanced shadow on hover */
+            transform: translateY(-5px); /* Slight lift on hover */
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 180px; /* Fixed height for image area */
+            background-color: #2a2550; /* Placeholder background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Ensures image fits */
+            position: relative; /* For badge positioning */
+        }
+
+        .project-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area */
+        }
+
+        .project-card .badge {
+            background: orange;
+            padding: 4px 10px;
+            border-radius: 0 0 10px 0; /* Rounded only on bottom-right */
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+            position: absolute; /* Position over the image */
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .project-content {
+            padding: 15px;
+            flex-grow: 1; /* Allows content to expand */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-category {
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background for category */
+            color: #d2b4de;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            align-self: flex-start; /* Align to the left */
+        }
+
+        .project-title {
+            font-size: 1.3rem; /* Larger title */
+            font-weight: bold;
+            color: #ffeaa7; /* Yellowish color from brand title */
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .project-author {
+            font-size: 0.8rem;
+            color: #b0a3d4; /* Slightly lighter purple */
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto; /* Pushes tags to the bottom of content area */
+        }
+
+        .project-tags .tag {
+            background-color: #483d78; /* Darker tag background */
+            color: #d0c2ee;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+        }
+
+        .project-card-footer-extended {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separator line */
+            background-color: rgba(0, 0, 0, 0.1); /* Slight darker footer */
+        }
+
+        .project-card-footer-extended .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #e0c8ff;
+        }
+
+        .project-card-footer-extended .rating {
+            font-size: 0.9rem;
+            color: #ffd700; /* Gold color for star */
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .view-project-btn {
+            background: linear-gradient(to right, #00cec9, #6c5ce7); /* Matches upload button */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-icon {
+            background: none;
+            border: none;
+            color: #e0c8ff;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .download-icon:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Styles for "No projects found" message */
+        .no-projects-message {
+            text-align: center;
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px); /* Start slightly below */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .no-projects-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Keyframes for initial load animation */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <div class="logo">TP</div>
+            <div class="brand-title">Tech Pulse</div>
+        </div>
+        <nav>
+            <a href="#">Learning Path</a>
+            <a href="#">Projects</a>
+            <a href="#">To-Do Tracker</a>
+            <a href="#">Team Connect</a>
+            <a href="#">Resume Builder</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div class="auth-buttons">
+            <button>Log In</button>
+            <button class="signup-btn">Sign Up</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <button class="upload-btn">🚀 Project Showcase</button>
+        <h1>Amazing Projects by Our Community</h1>
+        <p>Discover incredible projects built by learners like you. Get inspired, learn from others, and share your own creations.</p>
+
+        <div class="search-upload">
+            <input type="text" placeholder="Search projects, technologies, or authors...">
+            <button class="upload-btn1">+ Upload Project</button>
+        </div>
+
+        <div class="category-tabs">
+            <button class="active" data-category="all">All</button>
+            <button data-category="web-development">Web Development</button>
+            <button data-category="mobile-development">Mobile Development</button>
+            <button data-category="ai-ml">AI/ML</button>
+            <button data-category="blockchain">Blockchain</button>
+            <button data-category="iot">IoT</button>
+            <button data-category="data-science">Data Science</button>
+            <button data-category="other">Other</button>
+        </div>
+    </div>
+
+    <div class="featured-projects">
+        <h2>⭐ Featured Projects</h2>
+        <div class="project-grid" id="featured-project-grid">
+            <div class="project-card" data-category="web-development">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=E-commerce+Dashboard" alt="E-commerce Dashboard Project Image">
+                </div>
+                <div class="badge">Featured</div>
+                <div class="project-content">
+                    <p class="project-category">Web Development</p>
+                    <h3 class="project-title">E-commerce Dashboard</h3>
+                    <p class="project-author">by Sarah Chen</p>
+                    <p class="project-description">A modern admin dashboard for e-commerce management with real-time analytics and beautiful charts.</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Tailwind CSS</span>
+                        <span class="tag">+1</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 89</span>
+                        <span>⬇ 23</span>
+                    </div>
+                    <div class="rating">⭐ 4.8</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="mobile-development">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Mobile+Fitness+Tracker" alt="Mobile Fitness Tracker Project Image">
+                </div>
+                <div class="badge">Featured</div>
+                <div class="project-content">
+                    <p class="project-category">Mobile Development</p>
+                    <h3 class="project-title">Mobile Fitness Tracker</h3>
+                    <p class="project-author">by Emma Davis</p>
+                    <p class="project-description">Cross-platform mobile app for tracking workouts, nutrition, and health metrics with social features.</p>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Redux</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 134</span>
+                        <span>⬇ 31</span>
+                    </div>
+                    <div class="rating">⭐ 4.7</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="data-science">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Data+Visualization+Tool" alt="Data Visualization Tool Project Image">
+                </div>
+                <div class="badge">Featured</div>
+                <div class="project-content">
+                    <p class="project-category">Data Science</p>
+                    <h3 class="project-title">Data Visualization Tool</h3>
+                    <p class="project-author">by Lisa Wang</p>
+                    <p class="project-description">Interactive data visualization platform with multiple chart types, real-time updates, and export features.</p>
+                    <div class="project-tags">
+                        <span class="tag">D3.js</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">+2</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 34</span>
+                        <span>⬇ 09</span>
+                    </div>
+                    <div class="rating">⭐ 4.5</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="no-projects-message" id="no-featured-projects-message">No featured projects found in this category.</p>
+    </div>
+
+    <div class="all-projects">
+        <h2>All Projects</h2>
+        <div class="project-grid" id="all-project-grid">
+            <div class="project-card" data-category="iot">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=IoT+Smart+Home" alt="IoT Smart Home System Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">IoT</p>
+                    <h3 class="project-title">IoT Smart Home System</h3>
+                    <p class="project-author">by Alex Kim</p>
+                    <p class="project-description">An integrated smart home solution connecting various devices for automation and monitoring.</p>
+                    <div class="project-tags">
+                        <span class="tag">Arduino</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MQTT</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 89</span>
+                        <span>⬇ 15</span>
+                    </div>
+                    <div class="rating">⭐ 4.2</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="blockchain">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Blockchain+Voting" alt="Blockchain Voting System Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">Blockchain</p>
+                    <h3 class="project-title">Secure Blockchain Voting</h3>
+                    <p class="project-author">by Chris Lee</p>
+                    <p class="project-description">A decentralized and transparent voting system built on blockchain technology for enhanced security.</p>
+                    <div class="project-tags">
+                        <span class="tag">Solidity</span>
+                        <span class="tag">Ethereum</span>
+                        <span class="tag">Web3.js</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 110</span>
+                        <span>⬇ 28</span>
+                    </div>
+                    <div class="rating">⭐ 4.6</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="ai-ml">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=AI+Recipe+Generator" alt="AI Recipe Generator Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">AI/ML</p>
+                    <h3 class="project-title">AI Recipe Generator</h3>
+                    <p class="project-author">by Mia Johnson</p>
+                    <p class="project-description">Generates unique recipes based on available ingredients and dietary preferences using machine learning.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">Streamlit</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 95</span>
+                        <span>⬇ 18</span>
+                    </div>
+                    <div class="rating">⭐ 4.9</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="web-development">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Educational+Game" alt="Educational Game Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">Web Development</p>
+                    <h3 class="project-title">Interactive Educational Game</h3>
+                    <p class="project-author">by David Green</p>
+                    <p class="project-description">A fun and engaging browser-based game designed to teach complex science concepts to children.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5 Canvas</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">GSAP</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 160</span>
+                        <span>⬇ 45</span>
+                    </div>
+                    <div class="rating">⭐ 4.7</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="ai-ml">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Sentiment+Analyzer" alt="Sentiment Analyzer Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">AI/ML</p>
+                    <h3 class="project-title">Real-time Sentiment Analyzer</h3>
+                    <p class="project-author">by Emily White</p>
+                    <p class="project-description">Analyzes text input to determine its emotional tone (positive, negative, neutral) using NLP techniques.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">NLTK</span>
+                        <span class="tag">Django</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 78</span>
+                        <span>⬇ 10</span>
+                    </div>
+                    <div class="rating">⭐ 4.3</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="iot">
+                <div class="project-image-placeholder">
+                    <img src="https://via.placeholder.com/300x180?text=Sustainable+Garden+Monitor" alt="Sustainable Garden Monitor Project Image">
+                </div>
+                <div class="project-content">
+                    <p class="project-category">IoT</p>
+                    <h3 class="project-title">Sustainable Garden Monitor</h3>
+                    <p class="project-author">by Kevin Brown</p>
+                    <p class="project-description">Monitors soil moisture, light, and temperature to optimize watering for eco-friendly gardening.</p>
+                    <div class="project-tags">
+                        <span class="tag">Raspberry Pi</span>
+                        <span class="tag">Sensors</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+                <div class="project-card-footer-extended">
+                    <div class="stats">
+                        <span>♥ 105</span>
+                        <span>⬇ 20</span>
+                    </div>
+                    <div class="rating">⭐ 4.8</div>
+                    <div class="actions">
+                        <button class="view-project-btn">▷ View Project</button>
+                        <button class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2.5a.5.5 0 0 1 1 0v2.5A1.5 1.5 0 0 1 14.5 14h-13A1.5 1.5 0 0 1 0 12.5v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="no-projects-message" id="no-all-projects-message">No projects found in this category.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.category-tabs button');
+            const allProjectCards = document.querySelectorAll('.all-projects .project-card');
+            const featuredProjectCards = document.querySelectorAll('.featured-projects .project-card');
+            const featuredProjectsSection = document.querySelector('.featured-projects');
+            const allProjectsSection = document.querySelector('.all-projects');
+            const noFeaturedProjectsMessage = document.getElementById('no-featured-projects-message');
+            const noAllProjectsMessage = document.getElementById('no-all-projects-message');
+
+            // Function to show/hide and animate cards
+            const filterAndAnimateCards = (cards, container, noProjectsMsgElement, category) => {
+                let projectsFound = false;
+                // First, hide all cards immediately (without transition for hiding)
+                cards.forEach(card => {
+                    card.classList.remove('show');
+                    card.style.display = 'none'; // Hide immediately
+                });
+
+                // Small delay before showing new cards to allow for re-flow and smooth animation
+                setTimeout(() => {
+                    let delay = 0;
+                    cards.forEach(card => {
+                        const cardCategory = card.dataset.category;
+                        if (category === 'all' || cardCategory === category) {
+                            card.style.display = 'flex'; // Show the card
+                            // Trigger reflow to apply initial hidden state before applying 'show'
+                            void card.offsetWidth; 
+                            setTimeout(() => {
+                                card.classList.add('show');
+                            }, delay); // Staggered animation
+                            delay += 100; // Increase delay for next card
+                            projectsFound = true;
+                        } else {
+                            card.classList.remove('show'); // Ensure hidden cards stay hidden
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    if (projectsFound) {
+                        noProjectsMsgElement.classList.remove('show'); // Hide message if projects are found
+                    } else {
+                        noProjectsMsgElement.classList.add('show'); // Show message if no projects are found
+                    }
+                }, 50); // Small delay to ensure all cards are hidden before new ones are shown
+            };
+
+            // Initial load animation for all project cards
+            const animateOnLoad = (cards) => {
+                let delay = 0;
+                cards.forEach(card => {
+                    setTimeout(() => {
+                        card.classList.add('show');
+                    }, delay);
+                    delay += 100; // Staggered animation
+                });
+            };
+
+            animateOnLoad(featuredProjectCards);
+            animateOnLoad(allProjectCards);
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.dataset.category;
+
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to the clicked button
+                    button.classList.add('active');
+
+                    // Filter and animate featured projects
+                    const filteredFeaturedCards = Array.from(featuredProjectCards).filter(card => 
+                        category === 'all' || card.dataset.category === category
+                    );
+                    filterAndAnimateCards(featuredProjectCards, featuredProjectsSection, noFeaturedProjectsMessage, category);
+
+                    // Filter and animate all projects
+                    const filteredAllCards = Array.from(allProjectCards).filter(card => 
+                        category === 'all' || card.dataset.category === category
+                    );
+                    filterAndAnimateCards(allProjectCards, allProjectsSection, noAllProjectsMessage, category);
+                });
+            });
+
+            // Initial check for "No featured projects" on page load if 'all' category has no featured projects (unlikely with initial data)
+            // Or if you want to explicitly hide the message if there are featured projects when 'all' is active
+            const initialFeaturedProjectsExist = Array.from(featuredProjectCards).some(card => card.style.display !== 'none');
+            if (!initialFeaturedProjectsExist) {
+                noFeaturedProjectsMessage.classList.add('show');
+            } else {
+                noFeaturedProjectsMessage.classList.remove('show');
+            }
+
+             // Initial check for "No all projects" on page load if 'all' category has no all projects (unlikely with initial data)
+            const initialAllProjectsExist = Array.from(allProjectCards).some(card => card.style.display !== 'none');
+            if (!initialAllProjectsExist) {
+                noAllProjectsMessage.classList.add('show');
+            } else {
+                noAllProjectsMessage.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

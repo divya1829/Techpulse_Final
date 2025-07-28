@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tech Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif; /* Softer, more readable body font */
+            background: url('https://i.pinimg.com/736x/93/0b/7b/930b7b50ca5c15243f160c927ef8860c.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0f7fa; /* Light cyan for better contrast and softer feel */
+            overflow-x: hidden;
+            line-height: 1.6; /* Slightly increased for readability */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header & Navbar */
+        header {
+            width: 100%;
+            position: relative;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px; /* Increased padding for more breathing room */
+            background: linear-gradient(90deg, #1b5e20, #2e7d32, #1b5e20); /* Earthy green gradient */
+            color: white;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); /* More prominent, soft shadow */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Increased gap */
+        }
+
+        .logo-box {
+            background-color: #4caf50; /* Green accent for logo */
+            color: #fff;
+            font-family: 'Montserrat', sans-serif; /* Distinct font for logo */
+            font-weight: 700;
+            padding: 9px 14px; /* Larger padding */
+            border-radius: 10px; /* More rounded */
+            font-size: 1.3em;
+            letter-spacing: 1px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px; /* Larger logo text */
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px; /* More space between main nav items */
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 17px;
+            padding: 8px 0; /* More padding */
+            transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease;
+            position: relative;
+            font-weight: 600; /* Bolder for prominence */
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            bottom: -6px; /* Slightly lower */
+            left: 50%; /* Start from center */
+            transform: translateX(-50%); /* Center the underline */
+            background-color: #ffee58; /* Warm yellow accent */
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother animation */
+        }
+
+        .nav-links a:hover {
+            color: #ffee58; /* Warm yellow on hover */
+            transform: translateY(-2px);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Subtle glow */
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown Styles (CSS-only) */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; /* White background for crispness */
+            min-width: 200px; /* Wider dropdowns */
+            box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.25); /* Stronger, softer shadow */
+            z-index: 1;
+            border-radius: 10px; /* More rounded corners */
+            margin-top: 18px; /* More space from parent */
+            overflow: hidden;
+            left: 0;
+            opacity: 0;
+            transform: translateY(15px); /* More pronounced drop */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            border: 1px solid #e0e0e0; /* Subtle border */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 14px 20px; /* More padding */
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e8f5e9; /* Light green hover */
+            color: #1b5e20; /* Dark green text on hover */
+            padding-left: 25px; /* Slight slide effect on hover */
+        }
+
+        /* Profile Dropdown Specific */
+        .nav-actions {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-icon {
+            font-size: 28px; /* Larger */
+            color: white;
+            cursor: pointer;
+            padding: 10px; /* More padding */
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.25); /* Brighter, more inviting background */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px; /* Larger size */
+            height: 50px; /* Larger size */
+            box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-icon:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: #ffee58; /* Warm yellow on hover */
+            transform: scale(1.05); /* Gentle pop effect */
+        }
+
+        .profile-dropdown-content {
+            left: auto;
+            right: 0;
+            margin-top: 18px;
+        }
+
+        .profile-dropdown-content .logout-btn {
+            background-color: #ef5350; /* Softer red */
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            padding: 14px 20px;
+            margin-top: 5px; /* Small gap from other items */
+        }
+
+        .profile-dropdown-content .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Hamburger Menu (CSS-only) */
+        .hamburger-container {
+            display: none;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-icon {
+            font-size: 32px; /* Larger hamburger icon */
+            color: white;
+            cursor: pointer;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Wider sidebar */
+            height: 100%;
+            width: 300px; /* Wider sidebar */
+            background-color: #ffffff; /* White background for sidebar */
+            padding: 30px; /* More padding */
+            transition: right 0.4s ease-in-out;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -8px 0 20px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+            color: #333; /* Dark text for light background */
+        }
+
+        /* When checkbox is checked, show sidebar */
+        #menu-toggle:checked ~ .sidebar {
+            right: 0;
+        }
+
+        .sidebar .close-btn {
+            font-size: 40px; /* Larger close button */
+            color: #ef5350; /* Red close button */
+            cursor: pointer;
+            text-align: right;
+            margin-bottom: 25px; /* More margin */
+            transition: transform 0.2s ease;
+        }
+
+        .sidebar .close-btn:hover {
+            transform: rotate(90deg); /* Spin on close */
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 15px 0; /* More spacing */
+            color: #424242; /* Darker text */
+            text-decoration: none;
+            font-size: 19px;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            color: #4caf50; /* Green on hover */
+            transform: translateX(8px); /* More pronounced slide */
+        }
+
+        /* Sidebar Sub-Menu */
+        .sidebar .menu-item {
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 10px; /* Space between menu items */
+        }
+
+        .sidebar .menu-item > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600; /* Bolder parent menu item */
+        }
+
+        .sidebar .menu-item > a::after {
+            content: '\25BC';
+            font-size: 0.7em;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+            color: #757575; /* Gray caret */
+        }
+
+        .sidebar .menu-item.active > a::after {
+            transform: rotate(-180deg); /* Rotate 180 for open state */
+        }
+
+        .sidebar .sub-menu {
+            display: none;
+            padding-left: 30px; /* Deeper indent */
+            margin-top: 8px; /* More space */
+            border-left: 3px solid #e0f2f7; /* Thicker, softer border */
+            background-color: #f7f7f7; /* Slightly different background for sub-menu */
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .sidebar .sub-menu a {
+            font-size: 17px;
+            margin: 8px 0;
+            color: #616161; /* Softer text color */
+        }
+
+        .sidebar .sub-menu a:hover {
+            color: #4caf50;
+            background-color: #e8f5e9; /* Light green background on hover */
+            border-radius: 3px;
+        }
+
+        .sidebar .sub-menu.show {
+            display: block;
+        }
+
+        /* Sidebar Profile Section */
+        .sidebar .profile-section {
+            margin-top: auto;
+            padding-top: 25px; /* More padding */
+            border-top: 1px solid #e0e0e0; /* Softer border */
+            margin-top: 40px; /* More margin */
+        }
+
+        .sidebar .profile-section h4 {
+            color: #2c3e50;
+            margin-bottom: 15px; /* More margin */
+            font-size: 1.2em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .sidebar .profile-section a {
+            margin: 10px 0;
+            padding-left: 12px; /* More padding */
+            color: #666;
+        }
+
+        .sidebar .profile-section .logout-btn {
+            background-color: #ef5350;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 8px; /* More rounded */
+            margin-top: 20px;
+            display: block;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sidebar .profile-section .logout-btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1024px) {
+            .nav-links,
+            .nav-actions {
+                display: none;
+            }
+
+            .hamburger-container {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 140px; /* More vertical padding for grandeur */
+            max-width: 1000px; /* Wider content area */
+            margin: auto;
+            color: #e0f7fa;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2); /* More visible badge */
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 15px;
+            margin-bottom: 35px; /* More space */
+            backdrop-filter: blur(10px); /* Stronger blur */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* Clearer border */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 64px; /* Much larger title */
+            font-weight: 800; /* Extra bold */
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5); /* Deeper shadow for impact */
+            letter-spacing: -1px; /* Tighter letter spacing */
+        }
+
+        .hero-title span {
+            color: #ffee58; /* Warm yellow accent */
+        }
+
+        .subtitle {
+            font-size: 21px; /* Larger subtitle */
+            margin-bottom: 50px; /* More space */
+            color: #e0f7fa;
+            max-width: 750px; /* Wider subtitle */
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7; /* Increased for better readability */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* More gap for prominent buttons */
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons a {
+            padding: 18px 32px; /* Larger buttons */
+            border-radius: 15px; /* More rounded */
+            font-size: 19px; /* Larger text in buttons */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .start-btn {
+            background-color: #4caf50; /* Green primary button */
+            color: #fff;
+        }
+
+        .projects-btn {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent for secondary */
+            border: 2px solid #e0f7fa; /* Light border */
+            color: #e0f7fa;
+        }
+
+        .start-btn:hover {
+            background-color: #388e3c; /* Darker green on hover */
+            transform: translateY(-4px); /* More pronounced lift */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .projects-btn:hover {
+            background-color: rgba(255, 255, 255, 0.18); /* More opaque on hover */
+            border-color: #ffee58; /* Yellow border on hover */
+            color: #ffee58;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 20px; /* More vertical padding */
+            text-align: center;
+        }
+
+        .stats-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem; /* Larger heading */
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #e0f7fa;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .stats-section p {
+            font-size: 1.3rem; /* Larger paragraph */
+            color: #b2ebf2; /* Lighter cyan */
+            margin-bottom: 70px; /* More space */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width */
+            gap: 40px; /* More gap */
+            max-width: 1200px; /* Wider grid */
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1); /* Slightly transparent for depth */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px; /* More rounded */
+            padding: 30px; /* More padding */
+            backdrop-filter: blur(12px); /* Stronger blur for frosted glass effect */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.3s ease;
+            color: #e0f7fa;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.15); /* Slightly brighter on hover */
+        }
+
+        .stat-card .icon {
+            font-size: 4rem; /* Much larger icon */
+            margin-bottom: 20px;
+            color: #ffee58; /* Warm yellow accent for icons */
+            text-shadow: 0 0 10px rgba(255, 235, 59, 0.7); /* Subtle glow on icon */
+        }
+
+        .stat-card .value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem; /* Much larger value */
+            font-weight: 800;
+            color: #81c784; /* Light green value */
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card .label {
+            font-size: 1.25rem; /* Larger label */
+            color: #b2ebf2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <input type="checkbox" id="menu-toggle">
+
+        <div class="sidebar">
+            <label for="menu-toggle" class="close-btn">&times;</label> 
+            
+            <div class="menu-item" onclick="toggleSubMenu(this, 'learningPathSubMenu')">
+                <a href="#">Learning Path</a>
+                <div class="sub-menu" id="learningPathSubMenu">
+                    <a href="knowledgeenter.html">Take Quiz</a>
+                    <a href="#">Explore Courses</a>
+                </div>
+            </div>
+
+            <a href="#">Projects</a>
+            <a href="#">Team Connect</a>
+            <a href="#">Resume Builder</a>
+            <a href="about.html">About</a>
+            <div class="profile-section">
+                <h4>Your Profile</h4>
+                <a href="#">To-Do Tracker</a>
+                <a href="#">Reminders</a>
+                <a href="#" class="logout-btn">Log Out</a>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-box">TP</div>
+                <div class="logo-text">Tech Pulse</div>
+            </div>
+            
+            <div class="nav-links">
+                <div class="dropdown">
+                    <a href="#">Learning Path <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content" id="learningPathDropdown">
+                        <a href="#">Take Quiz</a>
+                        <a href="#">Explore Courses</a>
+                    </div>
+                </div>
+                <a href="#">Projects</a>
+                <a href="#">Team Connect</a>
+                <a href="#">Resume Builder</a>
+                <a href="about.html">About</a>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="dropdown">
+                    <span class="profile-icon">&#128100;</span>
+                    <div class="profile-dropdown-content dropdown-content" id="profileDropdown">
+                        <a href="#">To-Do Tracker</a>
+                        <a href="#">Reminders</a>
+                        <a href="#" class="logout-btn">Log Out</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hamburger-container">
+                <label for="menu-toggle" class="hamburger-icon">&#9776;</label> 
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="badge">Welcome to the Future of Learning</div>
+            <h1 class="hero-title">Tech <span>Pulse</span></h1>
+            <p class="subtitle">
+                Decode the future with us. Your ultimate platform for learning, building projects, connecting with peers, and advancing your tech career through cutting-edge technology and AI-powered assistance.
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="start-btn">
+                    <i class="fas fa-play-circle"></i> Start Learning
+                </a>
+                <a href="#" class="projects-btn">
+                    <i class="fas fa-folder-open"></i> Explore Projects
+                </a>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <h2>Trusted by Thousands</h2>
+            <p>Join our growing community of learners and creators</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <div class="value">10K+</div>
+                    <div class="label">Active Learners</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="value">5K+</div>
+                    <div class="label">Projects Shared</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-handshake"></i></div>
+                    <div class="value">2K+</div>
+                    <div class="label">Teams Formed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="value">8K+</div>
+                    <div class="label">Resumes Created</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // This JavaScript is ONLY for the sidebar's sub-menu toggle.
+        // The main sidebar open/close and main navbar dropdowns are now pure CSS.
+        function toggleSubMenu(element, subMenuId) {
+            element.classList.toggle("active");
+            var subMenu = document.getElementById(subMenuId);
+            subMenu.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>

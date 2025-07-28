@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship Hub | Tech Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8fbfd; /* Light background */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Main Container for Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+        }
+
+        /* Header / Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #004080, #0056b3); /* Tech Pulse blue gradient */
+            color: #fff;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-section p {
+            font-size: 20px;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Section Headings */
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #0056b3;
+            border-radius: 2px;
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        /* Feature Lists (Why Find Internships, Preparation Resources) */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .feature-item {
+            background: #fdfdfd;
+            border: 1px solid #e9eff4;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            color: #004080;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* How It Works Steps */
+        .how-it-works-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: #fdfdfd;
+            border: 1px solid #e9eff4;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            flex: 1 1 280px; /* Allow cards to grow/shrink */
+            max-width: 320px;
+            transition: transform 0.2s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-card .step-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0056b3;
+            margin-bottom: 15px;
+            background: #e6f0ff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            border: 2px solid #0056b3;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            color: #004080;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .step-card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Internship Types List */
+        .internship-types ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .internship-types li {
+            background: #e6f0ff; /* Light blue background */
+            color: #004080;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid #cce0ff;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .internship-types li:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 40px 0;
+            background: #f0f8ff; /* Very light blue background */
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .testimonials h2 {
+            color: #003366;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 30px auto;
+            position: relative;
+        }
+        .testimonial-card p {
+            font-size: 17px;
+            font-style: italic;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .testimonial-card p::before {
+            content: "“";
+            font-size: 40px;
+            color: #0056b3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: serif;
+        }
+        .testimonial-card p::after {
+            content: "”";
+            font-size: 40px;
+            color: #0056b3;
+            position: absolute;
+            bottom: -5px;
+            right: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-author {
+            font-size: 16px;
+            font-weight: 600;
+            color: #003366;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #004080;
+            margin-bottom: 25px;
+        }
+        .cta-section h2::after {
+            background-color: #004080;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #0056b3;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #003366;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-button.secondary {
+            background-color: #27ae60; /* Green for secondary action */
+        }
+        .cta-button.secondary:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 25px;
+            }
+            .hero-section {
+                padding: 30px 15px;
+            }
+            .hero-section h1 {
+                font-size: 32px;
+            }
+            .hero-section p {
+                font-size: 16px;
+            }
+            h2 {
+                font-size: 26px;
+                margin-bottom: 25px;
+            }
+            .section {
+                padding: 25px 0;
+            }
+            .feature-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .step-card {
+                padding: 25px;
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+            .internship-types li {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+            .testimonial-card {
+                padding: 25px;
+            }
+            .testimonial-card p {
+                font-size: 15px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 28px;
+            }
+            .hero-section p {
+                font-size: 14px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            .feature-item h3, .step-card h3 {
+                font-size: 18px;
+            }
+            .feature-item p, .step-card p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="hero-section">
+            <h1>🚀 Internship Hub | Unlock Your Tech Career with Tech Pulse</h1>
+            <p>
+                Land Your Dream Internship & Build Real-World Experience. At Tech Pulse, we don't just guide your learning; we connect it directly to your career. Our Internship Hub is designed to bridge the gap between your acquired skills and the in-demand opportunities in the tech industry, ensuring you find roles that truly align with current company needs.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Why Find Internships with Tech Pulse?</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>Trend-Driven Opportunities</h3>
+                    <p>Our system continuously analyzes industry demands to bring you internships that companies *actually* need. No outdated roles, just relevant, cutting-edge opportunities.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Skill-Matched Placements</h3>
+                    <p>Based on your completed courses, quiz performance, and learning path progress, we recommend internships that perfectly match your validated skillset.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Project-Powered Portfolios</h3>
+                    <p>Showcase your completed projects directly from Tech Pulse to potential employers. Make it easy for recruiters to see your practical experience.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Community Collaboration Advantage</h3>
+                    <p>Highlight your experience finding teammates and collaborating on projects. Demonstrating teamwork makes you an ideal candidate for dynamic tech environments.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Personalized Preparation</h3>
+                    <p>Access extensive resources, including targeted courses, practice quizzes, and AI-powered guidance, to sharpen the exact skills required for your desired internship.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>How It Works: Your Path to an Internship</h2>
+            <div class="how-it-works-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Build Your Profile</h3>
+                    <p>Start by completing your Tech Pulse profile. Highlight your skills, courses taken, and projects completed.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Explore Personalized Matches</h3>
+                    <p>Our intelligent system will present you with internship opportunities tailored to your learning progress and in-demand skills.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Refine Your Resume (Automatically!)</h3>
+                    <p>Use our **Automatic Resume Builder** to create a professional resume. Our AI Chatbox can even provide real-time tips!</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Ace Your Prep</h3>
+                    <p>Leverage our **AI Chatbox** for interview tips and technical questions. Review specific course modules or practice quizzes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3>Apply with Confidence</h3>
+                    <p>Submit your application directly through our platform or get clear instructions on how to apply on the company's portal.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section internship-types">
+            <h2>Types of Internships You'll Find</h2>
+            <ul>
+                <li>Front-End Developer Internships (React, React Native, Angular, Vue.js)</li>
+                <li>Back-End Developer Internships (Node.js, Python, Java, .NET)</li>
+                <li>Full-Stack Developer Internships</li>
+                <li>Mobile App Development Internships (iOS, Android, React Native)</li>
+                <li>UI/UX Design Internships</li>
+                <li>Data Science & Machine Learning Internships</li>
+                <li>Cloud Engineering Internships (AWS, Azure, GCP)</li>
+                <li>DevOps Internships</li>
+                <li>Quality Assurance (QA) Internships</li>
+                <li>... and many more, constantly updated based on market demand!</li>
+            </ul>
+        </section>
+
+        <section class="testimonials">
+            <h2>Hear From Our Successful Interns:</h2>
+            <div class="testimonial-card">
+                <p>
+                    "Thanks to Tech Pulse's focused learning paths and the resume builder, I secured a Front-End Developer internship at a top startup! The project I showcased from the platform was a huge talking point in my interview."
+                </p>
+                <div class="testimonial-author">— Ananya M., Software Engineering Intern</div>
+            </div>
+            <div class="testimonial-card">
+                <p>
+                    "The internship recommendations were spot-on! Tech Pulse helped me identify exactly what skills I needed to land my Data Science internship, and the AI chatbot was a lifesaver for interview prep."
+                </p>
+                <div class="testimonial-author">— Rohan P., Data Analyst Intern</div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Launch Your Tech Career?</h2>
+            <div class="cta-buttons">
+                <a href="#internship-listing-page" class="cta-button">Explore Internship Opportunities Now!</a>
+                <a href="#courses-page" class="cta-button secondary">Start Your Learning Path Today!</a>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

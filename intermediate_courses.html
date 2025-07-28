@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate Web Development Courses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a82fb; /* Blue from quiz */
+            --secondary-color: #fc5c7d; /* Pink/Red from quiz */
+            --accent-color: #ffb703; /* Yellow from quiz */
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px; /* Increased padding for better spacing */
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Wider container for courses */
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px var(--shadow-color);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        p.subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 30px; /* Spacing between cards */
+            justify-content: center;
+            animation: fadeIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute space */
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px var(--shadow-color);
+        }
+
+        .course-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-card p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Allow description to take up space */
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .course-meta .icon {
+            font-size: 1.1em;
+        }
+
+        .enroll-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--accent-color);
+            color: #333; /* Dark text for contrast */
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none; /* Remove underline for links */
+        }
+
+        .enroll-btn:hover {
+            background: #ffc107; /* Slightly lighter yellow */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Keyframe Animations (reused from quiz) */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p.subtitle {
+                font-size: 1.1rem;
+            }
+            .course-grid {
+                grid-template-columns: 1fr; /* Stack cards on small screens */
+            }
+            .course-card {
+                padding: 20px;
+            }
+            .course-card h2 {
+                font-size: 1.6rem;
+            }
+            .course-card p {
+                font-size: 0.9rem;
+            }
+            .enroll-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            .back-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            p.subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            .course-card h2 {
+                font-size: 1.4rem;
+            }
+            .course-card p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Intermediate Web Development Courses</h1>
+        <p class="subtitle">Elevate your skills with our hand-picked, top-rated courses.</p>
+
+        <div class="course-grid">
+            <!-- Course Card 1 -->
+            <div class="course-card">
+                <div>
+                    <h2>Advanced CSS & SASS</h2>
+                    <p>Dive deep into modern CSS techniques, animations, responsive design, and preprocessors like SASS to build stunning and efficient UIs.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.8</span>
+                    <span><span class="icon">🧑‍💻</span> 15k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="course-card">
+                <div>
+                    <h2>JavaScript DOM Manipulation & Events</h2>
+                    <p>Master the Document Object Model (DOM) and event handling to create highly interactive and dynamic web applications.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.7</span>
+                    <span><span class="icon">🧑‍💻</span> 12k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="course-card">
+                <div>
+                    <h2>Introduction to React.js</h2>
+                    <p>Learn the fundamentals of React, build component-based UIs, manage state, and understand the React ecosystem for modern front-end development.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.9</span>
+                    <span><span class="icon">🧑‍💻</span> 20k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 4 -->
+            <div class="course-card">
+                <div>
+                    <h2>Node.js & Express.js for Backend</h2>
+                    <p>Build robust backend APIs and server-side applications using Node.js and the Express.js framework. Learn about RESTful APIs and database integration.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.6</span>
+                    <span><span class="icon">🧑‍💻</span> 10k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 5 -->
+            <div class="course-card">
+                <div>
+                    <h2>SQL & Database Fundamentals</h2>
+                    <p>Understand relational databases, write SQL queries, and learn how to interact with databases from your web applications.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.5</span>
+                    <span><span class="icon">🧑‍💻</span> 8k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 6 -->
+            <div class="course-card">
+                <div>
+                    <h2>Git & GitHub for Collaboration</h2>
+                    <p>Master version control with Git and collaborate effectively on projects using GitHub. Essential for any serious developer.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.8</span>
+                    <span><span class="icon">🧑‍💻</span> 18k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 7 -->
+            <div class="course-card">
+                <div>
+                    <h2>Web Accessibility (A11y)</h2>
+                    <p>Learn to build inclusive web experiences for all users by understanding WCAG guidelines and implementing accessibility best practices.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.7</span>
+                    <span><span class="icon">🧑‍💻</span> 7k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 8 -->
+            <div class="course-card">
+                <div>
+                    <h2>Web Performance Optimization</h2>
+                    <p>Techniques to make your websites load faster and perform efficiently, improving user experience and SEO.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.6</span>
+                    <span><span class="icon">🧑‍💻</span> 9k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 9 -->
+            <div class="course-card">
+                <div>
+                    <h2>Basic Web Security</h2>
+                    <p>Understand common web vulnerabilities (XSS, CSRF) and learn how to implement basic security measures in your applications.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.5</span>
+                    <span><span class="icon">🧑‍💻</span> 6k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 10 -->
+            <div class="course-card">
+                <div>
+                    <h2>Testing JavaScript Applications</h2>
+                    <p>Learn how to write unit, integration, and end-to-end tests for your JavaScript applications using popular testing frameworks.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.7</span>
+                    <span><span class="icon">🧑‍💻</span> 8.5k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 11 (Optional, can add up to 15) -->
+            <div class="course-card">
+                <div>
+                    <h2>API Design & Consumption</h2>
+                    <p>Learn to design clean and efficient RESTful APIs and consume them effectively from your front-end applications.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.6</span>
+                    <span><span class="icon">🧑‍💻</span> 7.5k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+
+            <!-- Course Card 12 (Optional) -->
+            <div class="course-card">
+                <div>
+                    <h2>Webpack & Build Tools</h2>
+                    <p>Understand module bundlers like Webpack to optimize your development workflow and deploy efficient production builds.</p>
+                </div>
+                <div class="course-meta">
+                    <span><span class="icon">⭐</span> 4.4</span>
+                    <span><span class="icon">🧑‍💻</span> 5k+ Enrolled</span>
+                </div>
+                <a href="#" class="enroll-btn">Enroll Now</a>
+            </div>
+        </div>
+
+        <a href="knowledge-check.html" class="back-button">Back to Quiz</a>
+    </div>
+</body>
+</html>

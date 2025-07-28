@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech Pulse - Sign Up</title>
+  <style>
+    /* Your existing styles (same as your original) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.pinimg.com/736x/93/0b/7b/930b7b50ca5c15243f160c927ef8860c.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0f2f1;
+    }
+
+    .navbar {
+      background: white;
+      color: #698792;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-box {
+      background-color: #064656;
+      color: white;
+      padding: 8px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1f85a1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-size: 17px;
+      font-weight: 600;
+      color: #337898;
+      text-decoration: none;
+      
+    }
+    .nav-links a:hover {
+  color: #666f78;
+  text-decoration: none; /* Prevent underline on hover */
+}
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-actions a {
+      font-size: 15px;
+      padding: 8px 14px;
+      border-radius: 5px;
+      background-color: #1b5d72;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .nav-actions a:hover {
+      background-color: rgb(124, 149, 170);
+      color: #333;
+    }
+
+    .signup-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px;
+    }
+
+    .signup-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 40px 30px;
+      max-width: 450px;
+      width: 100%;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .signup-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #e0f2f1;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      outline: 2px solid #1f85a1;
+    }
+
+    .submit-btn, .next-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      background-color: #005379;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover,
+    .next-btn:hover {
+      background-color: #81a2b4;
+      color: #333;
+    }
+
+    .social-login {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .social-login button {
+      background: white;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      margin: 10px 5px 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #1f85a1;
+      font-weight: bold;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .signup-box {
+        padding: 30px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <div class="logo-box">TP</div>
+      <div class="logo-text">Tech Pulse</div>
+    </div>
+    <div class="nav-links">
+      <a href="#">Learning Path</a>
+      <a href="#">Projects</a>
+      <a href="#">To-Do Tracker</a>
+      <a href="#">Team Connect</a>
+      <a href="#">Resume Builder</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login3.html" class="login-btn">Log In</a>
+      <a href="#" class="signup-btn">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div class="signup-container">
+    <div class="signup-box">
+      <h2>Create Your Tech Pulse Account</h2>
+      <form id="signup-form">
+
+        <!-- Step 1 -->
+        <div class="step step-1 active">
+          <div class="input-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="Jane Doe" required />
+          </div>
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="jane@example.com" required />
+          </div>
+          <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+        </div>
+
+        <!-- Step 2 -->
+       <!-- Step 2 -->
+<div class="step step-2">
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter password" required />
+  </div>
+  <div class="input-group">
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" placeholder="Re-enter password" required />
+  </div>
+  <a href="tech.html" class="submit-btn">Sign Up</a>
+</div>
+
+      </form>
+
+      <div class="social-login">
+        <p>Or sign up with:</p>
+        <button>Google</button>
+        <button>GitHub</button>
+      </div>
+
+      <div class="login-link">
+        Already have an account? <a href="login3.html">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function nextStep() {
+      document.querySelector('.step-1').classList.remove('active');
+      document.querySelector('.step-2').classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

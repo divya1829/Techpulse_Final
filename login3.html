@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Tech Pulse</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.pinimg.com/1200x/5a/b3/88/5ab38879efc1b8abef90149bf1b2e3c5.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0f2f1;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Animated Circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      animation: floatCircle 20s linear infinite;
+      z-index: 0;
+    }
+
+    .circle:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      left: 10%;
+      animation-duration: 18s;
+    }
+
+    .circle:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      top: 50%;
+      left: 80%;
+      animation-duration: 25s;
+    }
+
+    .circle:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      top: 70%;
+      left: 30%;
+      animation-duration: 22s;
+    }
+
+    .circle:nth-child(4) {
+      width: 50px;
+      height: 50px;
+      top: 10%;
+      left: 60%;
+      animation-duration: 28s;
+    }
+
+    @keyframes floatCircle {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Login Container */
+    .login-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 40px 30px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1; /* Above the floating circles */
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #094252;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .login-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #e0f2f1;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 15px;
+    }
+
+    .login-container input::placeholder {
+      color: #ddd;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1b5d72;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #88a6b2;
+      color: #222;
+    }
+
+    .login-container .signup-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login-container .signup-link a {
+      color: #053441;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .login-container .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Circles -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <h2>Login to Tech Pulse</h2>
+    <form>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required />
+
+      <button type="submit">Log In</button>
+
+      <div class="signup-link">
+        Don't have an account? <a href="signup1.html">Sign Up</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
