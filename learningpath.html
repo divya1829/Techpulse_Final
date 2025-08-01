@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6a82fb; /* A vibrant blue */
-            --secondary-color: #fc5c7d; /* A soft pink/red */
-            --accent-color: #ffb703; /* A bright yellow for progress/buttons */
-            --text-color: #ffffff;
+            --primary-color: #bb56e3; /* A vibrant blue */
+            --secondary-color: #de88e3; /* A soft pink/red */
+            --accent-color: #f5ae82; /* A bright yellow for progress/buttons */
+            --text-color: #faf2fb;
             --bg-light-alpha: rgba(255, 255, 255, 0.15);
             --bg-dark-alpha: rgba(0, 0, 0, 0.2);
             --shadow-color: rgba(0, 0, 0, 0.3);
@@ -376,33 +376,41 @@
         }
 
         function showResult() {
-            questionEl.style.display = "none";
-            optionsEl.style.display = "none";
-            questionCountEl.style.display = "none";
-            progressFill.style.width = "100%"; // Ensure progress bar is full
-            resultEl.style.display = "block";
+    questionEl.style.display = "none";
+    optionsEl.style.display = "none";
+    questionCountEl.style.display = "none";
+    progressFill.style.width = "100%";
+    resultEl.style.display = "block";
 
-            let level;
-            let message;
-            if (score <= 4) {
-                level = "beginner";
-                message = "Keep learning! Every step counts.";
-            } else if (score <= 7) {
-                level = "intermediate";
-                message = "Great job! You're on your way to mastery.";
-            } else {
-                level = "advanced";
-                message = "Excellent! You're a web development pro!";
-            }
+    let level;
+    let message;
+    let courseLink;
 
-            resultEl.innerHTML = `
-                <h2>Quiz Complete!</h2>
-                <p>You scored <b>${score}</b> out of <b>${quizData.length}</b>.</p>
-                <p>${message}</p>
-                <p>Suggested Course: <b>${level.charAt(0).toUpperCase() + level.slice(1)}</b></p>
-                <button class="result-btn" onclick="window.location.href='${level}.html'">Start ${level} Courses</button>
-            `;
-        }
+    if (score <= 4) {
+        level = "Beginner";
+        message = "You're just starting out. Let's build the basics!";
+        courseLink = "beginner.html";
+    } else if (score <= 7) {
+        level = "Intermediate";
+        message = "You're doing well! Time to level up your skills.";
+        courseLink = "intermediate_courses.html";
+    } else {
+        level = "Advanced";
+        message = "Excellent work! You're ready for advanced challenges.";
+        courseLink = "advanced_css.html";
+    }
+
+    resultEl.innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p>You scored <b>${score}</b> out of <b>${quizData.length}</b>.</p>
+        <p>${message}</p>
+        <p>Eligible Level: <b>${level}</b></p>
+        <a href="${courseLink}">
+            <button class="result-btn highlight-btn">Start ${level} Course</button>
+        </a>
+    `;
+}
+
 
         // Initial load
         loadQuestion();

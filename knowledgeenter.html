@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6a82fb, #fc5c7d); /* Modern gradient */
+            background-color: rgb(192, 43, 226);
             color: white;
             display: flex;
             flex-direction: column;
@@ -62,7 +62,7 @@
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size:30px;
             margin-bottom: 0.3em;
             letter-spacing: 2px;
             animation: fadeInDown 1s ease-out;
@@ -147,7 +147,11 @@
 
     <h1>Welcome to the Knowledge Check! 🎉</h1>
     <p>Get ready to embark on an exciting journey to test your skills.<br>Best of Luck!</p>
-    <button class="btn" onclick="startTest()">Start Test</button>
+    <a href="learningpath.html">
+  <button class="btn">Start Test</button>
+</a>
+
+
 
     <script>
         function startTest() {
@@ -162,7 +166,6 @@
         function createParticles() {
             const container = document.getElementById('particles-container');
             const numParticles = 30; // Number of particles
-
             for (let i = 0; i < numParticles; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
@@ -175,8 +178,6 @@
                 container.appendChild(particle);
             }
         }
-
-        // Call particle creation on load
         window.onload = createParticles;
     </script>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up | Tech Pulse</title>
+  <title>Login | Tech Pulse</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
@@ -23,7 +23,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #8e24aa;
+      background-color: #bb56e3;
       height: 100vh;
       display: flex;
       align-items: center;
@@ -47,18 +47,20 @@
       bottom: -100px;
       border-radius: 50%;
       opacity: 0.15;
-      animation: rise 15s infinite ease-in;
+      animation: rise 30s infinite ease-in;
     }
 
-    .bubble:nth-child(1) { left: 5%; width: 40px; height: 40px; background: #f3e7ff; animation-duration: 8s; }
-    .bubble:nth-child(2) { left: 15%; width: 80px; height: 80px; background: #e4c9fa; animation-duration: 10s; }
-    .bubble:nth-child(3) { left: 25%; width: 30px; height: 30px; background: #ffeaff; animation-duration: 7s; }
-    .bubble:nth-child(4) { left: 40%; width: 100px; height: 100px; background: #dfbfff; animation-duration: 12s; }
-    .bubble:nth-child(5) { left: 55%; width: 60px; height: 60px; background: #fad9ff; animation-duration: 9s; }
-    .bubble:nth-child(6) { left: 70%; width: 50px; height: 50px; background: #f3e7ff; animation-duration: 8s; }
-    .bubble:nth-child(7) { left: 80%; width: 90px; height: 90px; background: #f1ccff; animation-duration: 11s; }
-    .bubble:nth-child(8) { left: 90%; width: 35px; height: 35px; background: #e8bfff; animation-duration: 10s; }
-    .bubble:nth-child(9) { left: 30%; width: 75px; height: 75px; background: #fff0ff; animation-duration: 9s; }
+    /* Multiple bubbles with variation */
+    .bubble:nth-child(1) { left: 5%; width: 40px; height: 40px; background: #f3e7ff; animation-duration: 10s; }
+    .bubble:nth-child(2) { left: 15%; width: 80px; height: 80px; background: #e4c9fa; animation-duration: 12s; }
+    .bubble:nth-child(3) { left: 25%; width: 30px; height: 30px; background: #ffeaff; animation-duration: 9s; }
+    .bubble:nth-child(4) { left: 40%; width: 100px; height: 100px; background: #dfbfff; animation-duration: 14s; }
+    .bubble:nth-child(5) { left: 55%; width: 60px; height: 60px; background: #fad9ff; animation-duration: 11s; }
+    .bubble:nth-child(6) { left: 70%; width: 50px; height: 50px; background: #f3e7ff; animation-duration: 10s; }
+    .bubble:nth-child(7) { left: 80%; width: 90px; height: 90px; background: #f1ccff; animation-duration: 13s; }
+    .bubble:nth-child(8) { left: 90%; width: 35px; height: 35px; background: #e8bfff; animation-duration: 12s; }
+    .bubble:nth-child(9) { left: 30%; width: 75px; height: 75px; background: #fff0ff; animation-duration: 11s; }
+
 
     @keyframes rise {
       0% {
@@ -82,12 +84,12 @@
       width: 90%;
     }
 
-    .signup-form {
+    .login-form {
       flex: 1;
       padding: 40px 35px;
     }
 
-    .signup-form h2 {
+    .login-form h2 {
       text-align: center;
       color: var(--violet-dark);
       margin-bottom: 30px;
@@ -121,7 +123,7 @@
       border-color: var(--highlight);
     }
 
-    .btn-signup {
+    .btn-login {
       width: 100%;
       padding: 12px;
       background: #bb56e3;
@@ -134,23 +136,22 @@
       transition: background 0.3s ease;
     }
 
-    .btn-signup:hover {
+    .btn-login:hover {
       background: #c7adde;
     }
 
-    .signup-footer {
+    .login-footer {
       text-align: center;
       margin-top: 20px;
       font-size: 14px;
       color: var(--violet-dark);
     }
 
-    .signup-footer a {
+    .login-footer a {
       color: var(--violet-dark);
       text-decoration: underline;
     }
 
-   
     .image-section {
       flex: 1;
       display: flex;
@@ -170,7 +171,6 @@
       /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
     }
 
-
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -181,7 +181,7 @@
         display: none;
       }
 
-      .signup-form {
+      .login-form {
         padding: 30px 25px;
       }
     }
@@ -204,34 +204,69 @@
 
   <!-- Main Container -->
   <div class="container">
-    <!-- Sign Up Form -->
-    <div class="signup-form">
-      <h2>Create Your Account</h2>
+    <!-- Login Form -->
+    <div class="login-form">
+      <h2>Welcome Back</h2>
       <form>
-        <div class="input-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Enter your full name" required />
-        </div>
         <div class="input-group">
           <label for="email">Email</label>
           <input type="email" id="email" placeholder="Enter your email" required />
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Create a password" required />
+          <input type="password" id="password" placeholder="Enter your password" required />
         </div>
-        <button type="submit" class="btn-signup">Sign Up</button>
+        <button type="submit" class="btn-login">Login</button>
       </form>
-      <div class="signup-footer">
-        Already have an account? <a href="login.html">Login</a>
+      <div class="login-footer">
+        Don't have an account? <a href="signup1.html">Sign up</a>
       </div>
     </div>
 
-    <!-- Lottie Animation -->
+    <!-- Image or Lottie -->
     <div class="image-section">
-      <img src="https://i.pinimg.com/1200x/34/44/7d/34447dc6a5ba7ca2ccdacbbc1ffb34ff.jpg"/>
+      <img src="https://i.pinimg.com/1200x/56/7e/c6/567ec6e86a4e471e657691b5a7f77355.jpg" alt="Login Illustration" />
     </div>
   </div>
+
+
+
+  <script>
+    document.querySelector(".btn-login").addEventListener("click", function(){
+      event.preventDefault();
+
+      let email = document.querySelector("#email").value;
+      let password = document.querySelector("#password").value;
+
+      if(email && password) {
+        let localStorageData = localStorage.getItem("UserDetails");
+
+        if(localStorageData) {
+
+          localStorageData = JSON.parse(localStorageData);
+
+          if(email === localStorageData.email && password === localStorageData.password) {
+            window.location.href = "tech_pulse.html";
+          }
+
+          else {
+            alert("Username/Password is incorrect!!..");
+          }
+
+        }
+
+        else {
+          alert("Hello Buddy!! Invalid Email. Please do sign up");
+        }
+      }
+
+      else {
+        alert("Hello Buddy!! Please enter all the details");
+      }
+
+
+    })
+  </script>
 
 </body>
 </html>

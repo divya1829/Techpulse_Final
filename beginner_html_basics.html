@@ -55,15 +55,13 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
-        
 
         .container {
             width: 100%;
             max-width: 900px; 
             text-align: center;
-            position: relative;
         }
-        * {
+                * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -73,7 +71,6 @@ html, body {
   margin: 0;
   padding: 0;
 }
-
 
         h1 {
             font-family: 'Poppins', sans-serif; /* Poppins kept for headings */
@@ -231,7 +228,7 @@ html, body {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-            .navbar {
+         .navbar {
       background:white;
       color:var(--main-color);
       display: flex;
@@ -506,7 +503,9 @@ html, body {
       to { opacity: 1; transform: translateX(0); }
     }
 
-        /* Responsive adjustments */
+
+     
+ /* Responsive adjustments */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.8rem;
@@ -616,35 +615,34 @@ html, body {
     </style>
 </head>
 <body>
-      <div class="navbar">
-    <div class="logoimg"><img src="../Img/Brain Meets Circuitry Icon.png" width="50"></div>
-    <!-- <div class="logo-text">Tech Pulse</div> -->
+     <div class="navbar">
+    <div class="logoimg"><img src="../Img/Brain Meets Circuitry Icon.png" width="50"></div>    <div class="logo-text">Tech Pulse</div>
 
     <div class="nav-links">
-      <a href="tech3.html">Home</a>
+      <a href="#">Home</a>
       <div class="dropdown-container">
         <a href="#" class="no-underline">Learning Path</a>
         <div class="dropdown">
-          <a href="explore_courses.html">Explore Courses</a>
-          <a href="knowledgeenter.html">Knowledge Check</a>
+          <a href="#">Explore Courses</a>
+          <a href="#">Knowledge Check</a>
         </div>
       </div>
      
-      <a href="projects.html" >Projects</a>
+      <a href="#" >Projects</a>
       <a href="internships.html">Internships</a>
-       <a href="teamconnect">Team Connect</a>
-       <a href="resume.html">Resume Builder</a>
+       <a href="#">Team Connect</a>
+       <a href="#">Resume Builder</a>
     </div>
 
     <div class="profile-menu">
       <i class="fas fa-user-circle profile-icon" onclick="toggleProfileMenu()"></i>
       <div class="dropdown" id="profileDropdown">
-        <a href="todo.html">To-Do Tracker</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="Remainders.html">Reminders</a>
+        <a href="#">To-Do Tracker</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Reminders</a>
         <a href="signup1.html">Sign Up</a>
-        <a href="login.html">Log In</a>
-        <a href="tech3.html">Logout</a>
+        <a href="login3.html">Log In</a>
+        <a href="#">Logout</a>
       </div>
     </div>
 
@@ -654,37 +652,38 @@ html, body {
   </div>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="tech3.html">Home</a>
+    <a href="#">Home</a>
     <div class="mobile-learning-path-section">
       <div class="mobile-learning-path-toggle" onclick="toggleMobileLearningPathSubmenu()">
         Learning Path <i class="fas fa-chevron-right"></i>
       </div>
       <div class="mobile-learning-path-submenu">
-        <a href="explore_courses.html">Explore Courses</a>
-        <a href="knowledgeenter.html">Knowledge Check</a>
+        <a href="#">Explore Courses</a>
+        <a href="#">Knowledge Check</a>
       </div>
     </div>
-    <a href="projects.html">Projects</a>
+    <a href="#">Projects</a>
     <a href="internships.html">Internships</a>
-    <a href="teamconnect">Team Connect</a>
-    <a href="resume.html">Resume Builder</a>
+    <a href="#">Team Connect</a>
+    <a href="#">Resume Builder</a>
 
     <div class="mobile-profile-section">
       <div class="mobile-profile-toggle" onclick="toggleMobileProfileSubmenu()">
         Profile <i class="fas fa-chevron-right"></i>
       </div>
       <div class="mobile-profile-submenu">
-        <a href="todo.html">To-Do Tracker</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="Remainders.html">Reminders</a>
+        <a href="#">To-Do Tracker</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Reminders</a>
         <a href="signup1.html">Sign Up</a>
-        <a href="login.html">Log In</a>
-        <a href="tech3.html">Logout</a>
+        <a href="login3.html">Log In</a>
+        <a href="#">Logout</a>
       </div>
     </div>
   </div>
+
     <div class="container">
-        <h1>Advanced CSS</h1>
+        <h1>Beginner HTML Basics</h1>
         <p class="subtitle">Unlock the full potential of web styling for modern, responsive, and high-performance applications.</p>
 
         <div class="course-section">
@@ -933,9 +932,9 @@ body {
             <p>Keep practicing, keep building, and stay curious!</p>
         </div>
 
-        <a href="advanced.html" class="back-button">Back to advanced Courses</a>
+        <a href="beginner.html" class="back-button">Back to Beginner Courses</a>
     </div>
-    <script>
+        <script>
     function toggleMenu() {
       const mobileMenu = document.getElementById('mobileMenu');
       const hamburgerIcon = document.getElementById('hamburger').querySelector('i');
@@ -1036,6 +1035,5 @@ body {
         }
     });
   </script>
-
 </body>
 </html>

@@ -3,34 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tech Pulse - To-Do Tracker</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap" rel="stylesheet">
-
+  <title>Tech Pulse</title>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <style>
-
-    /* * { margin: 0; padding: 0; box-sizing: border-box; } */
-
-    body {
-      font-family: 'Urbanist', sans-serif;
-      overflow-x: hidden;
-      position: relative;
-      background-color: lab(70.93% 18.14 -31.01);
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.03;
-      z-index: -1;
-    }
-     :root {
+    :root {
       --main-color: lab(38.93% 33.84 -44.68);
       --main-color-50: lab(70.93% 18.14 -31.01);
       --secondary-color: #e66400;
@@ -46,246 +25,6 @@
       color: var(--main-color);
     }
 
-   
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      animation: fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .title {
-      text-align: center;
-      font-size: 40px;
-      font-weight: bold;
-      margin-bottom: 30px;
-      color:  lab(70.93% 18.14 -31.01) ;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px var(--secondary); }
-      to { text-shadow: 0 0 20px var(--primary); }
-    }
-
-    .quote {
-      text-align: center;
-      font-style: italic;
-      font-size: 14px;
-      margin-top: 12px;
-      animation: fadeInQuote 4s infinite alternate;
-      opacity: 0.6;
-    }
-
-    .section {
-      background: lab(38.93% 33.84 -44.68);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 25px;
-      color: white;
-      margin-bottom: 25px;
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .section:hover {
-      transform: translateY(-4px);
-      
-    }
-
-    .section h3 {
-      margin-bottom: 20px;
-      font-size: 24px;
-      padding-left: 14px;
-    }
-
-    .streak-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: space-around;
-    }
-
-    .streak-card {
-      flex: 1;
-      min-width: 180px;
-      color: lab(38.93% 33.84 -44.68);
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      transition: 0.3s;
-     
-    }
-
-    .streak-card:hover {
-      transform: translateY(-5px) scale(1.03);
-      
-    }
-
-    .streak-card h4 {
-      margin: 10px 0 5px;
-      font-size: 18px;
-    }
-
-    .streak-card i {
-      font-size: 26px;
-    }
-
-    #task-input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 10px;
-      outline: none;
-      background-color: white;
-      color: black;
-    }
-    button {
-      background: lab(70.93% 18.14 -31.01);
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    button:hover {
-      opacity: 0.9;
-      transform: scale(1.05);
-    }
-
-    #task-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    #task-list li {
-      background-color:white;
-      color: #111;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s ease;
-    }
-
-    #task-list li.completed {
-      text-decoration: line-through;
-      color: #555;
-    }
-
-    .task-actions i {
-      margin-left: 12px;
-      cursor: pointer;
-      color: #444;
-      transition: color 0.2s ease;
-    }
-
-    .task-actions i:hover {
-      color: #000;
-    }
-
-    .days span {
-      display: inline-block;
-      margin: 6px 10px 0 0;
-      font-size: 16px;
-    }
-
-    .days span i {
-      color: orange;
-    }
-
-    .tips {
-      margin-top: 20px;
-      padding: 14px;
-      background-color: rgba(255,255,255,0.05);
-      font-size: 15px;
-      line-height: 1.6;
-      border-radius: 8px;
-    }
-
-    .filters {
-      margin: 10px 0;
-      text-align: center;
-    }
-
-    .filters button {
-      margin: 0 8px;
-      background: lab(70.93% 18.14 -31.01);
-      color: black;
-      border-radius: 6px;
-      font-size: 14px;
-      padding: 6px 14px;
-    }
-
-    @media (max-width: 600px) {
-      .streak-cards {
-        flex-direction: column;
-      }
-    }
-
-    .contest-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contest-card {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px white;
-    }
-
-    .contest-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 5px white;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .contest-card i {
-      font-size: 28px;
-      animation: float 2s infinite ease-in-out;
-    }
-
-    .contest-card a {
-      color: lab(70.93% 18.14 -31.01);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .contest-card a:hover {
-      text-decoration: underline;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-      100% { transform: translateY(0px); }
-    }
-
-    
-
-      
-    
-
-
-
     a { text-decoration: none; color: inherit; }
 
     .navbar {
@@ -298,10 +37,9 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
       position: sticky;
       top: 0;
-      z-index: 10001;
+      
+      z-index: 100;
       flex-wrap: wrap;
-      width: 100%;
-   
     }
 
     .profile-menu {
@@ -323,10 +61,9 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       display: none;
-      font-size: 18px;
       flex-direction: column;
       min-width: 180px;
-      z-index: 1000;
+      z-index: 101;
     }
 
     .dropdown a {
@@ -348,6 +85,8 @@
     /* New styles for Learning Path dropdown (desktop) */
     .nav-links .dropdown-container {
       position: relative;
+      font-size: 20px;
+      top:-3px;
     }
 
     .nav-links .dropdown-container .dropdown {
@@ -385,15 +124,22 @@
     }
     /* End new styles for Learning Path dropdown */
 
-     .logo-text { font-size: 20px; font-weight: 700; color: var(--main-color); }
+     .logo-text { font-size: 20px; font-weight: 700; color: var(--main-color); margin-left: -130px; }
 
     .nav-links { display: flex; gap: 20px; }
-    .nav-links a {
+   
+   .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
   position: relative;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--main-color);
   text-decoration: none;
+  gap:20px;
 }
 
 /* Underline animation ONLY for links without .no-underline */
@@ -418,9 +164,6 @@
 }
 
 
-   
-   
-
     .nav-actions { display: none; }
 
     .hamburger { display: none; font-size: 28px; cursor: pointer; color:var(--main-color); }
@@ -429,17 +172,16 @@
       display: none;
       flex-direction: column;
       gap: 15px;
-      background:lab(38.93% 33.84 -44.68)  ;
+      background:#7025a5 ;
       padding: 20px 30px;
-      width: 50%;
+      width: 70%;
       position: fixed;
       top: 65px;
       left: 0;
       right: 0;
       height: 100vh;
       overflow-y: auto;
-      z-index: 1100;
-      font-size: 18px;
+      z-index: 99;
       transform: translateY(-100%);
       transition: transform 0.3s ease-out;
     }
@@ -450,7 +192,7 @@
     }
 
     .mobile-menu a {
-      color: var(--text-color);
+      color: #ffffff;
       font-weight: 600;
       padding: 8px 0;
       border-bottom: 1px solid rgba(126, 58, 242, 0.1);
@@ -460,8 +202,9 @@
       height: 40px;
       background-color: #c5b1f1;
       border-radius: 5px;
-      padding-top:5px;
+      padding-top: 10px;
       padding-left: 12px;
+
     }
 
     .mobile-menu a:last-child {
@@ -504,7 +247,6 @@
       padding-bottom: 10px;
       gap:10px;
       background-color: #fcf6fe;
-      
     }
     .mobile-profile-submenu a:hover{
       color:var(--main-color);
@@ -541,6 +283,279 @@
        background: linear-gradient(135deg, var(--main-color-50), var(--secondary-color));
     }
 
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 10%;
+      gap: 40px;
+      background: var(--main-color-50);
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      flex: 1;
+      animation: fadeInLeft 1s ease-in-out;
+    }
+
+    .hero-left h1 {
+      font-size: 3rem;
+      color: lab(38.93% 33.84 -44.68);
+      margin-top: -20px;
+    }
+
+    .hero-left p {
+      font-size: 1.2rem;
+      color: white;
+      line-height: 1.6;
+    }
+
+    .hero-right {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border: 8px solid white;
+      border-radius: 400px;
+      margin-left: 100px;
+    }
+
+    .info-section
+    {
+        padding: 60px 10%;
+      text-align: center;
+       color:var(--text-color);
+      background-color:lab(38.93% 33.84 -44.68) ;
+
+    } 
+    .infosection1
+    {
+       padding: 40px 10%;
+      text-align: center;
+      color:var(--text-color);
+       background-color: lab(38.93% 33.84 -44.68);
+    }
+    .why-section {
+      padding: 50px 10%;
+      text-align: center;
+      background-color:lab(38.93% 33.84 -44.68);
+    }
+
+    .info-section h2
+    {
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    } 
+
+    .infosection1 h2
+    {
+      font-size: 2.5rem;
+      color: var(--main-color);
+      margin-bottom: 20px;
+    } 
+    .why-section h2 {
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    }
+    .infosection1 p {
+      font-size: 1.1rem;
+      color: var(--main-color);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+
+    .info-section p {
+      font-size: 1.1rem;
+      color: var(--text-color);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .why-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature {
+      background: var(--text-color);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px lab(38.93% 33.84 -44.68);
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover { transform: translateY(-10px); }
+
+    .feature i {
+      font-size: 2rem;
+      color:var(--secondary-color);
+      margin-bottom: 15px;
+    }
+
+    .feature h3 {
+      font-size: 1.3rem;
+      color: lab(38.93% 33.84 -44.68);
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: #5d4372;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+     
+    /* AI Chat Icon */
+.ai-chat-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--main-color);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+.ai-chat-icon:hover {
+    transform: scale(1.1);
+}
+
+/* AI Chat Box */
+.ai-chat-box {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid #ddd;
+}
+
+.chat-header {
+    background-color: var(--main-color);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+.chat-body p {
+    background-color: #e6e6e6;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    color: #333;
+    max-width: 80%;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px 20px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    outline: none;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    background-color: #7025a5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input button:hover {
+    background-color: #ae6fe9;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+    .ai-chat-box {
+        bottom: 50px;
+        right: 20px;
+        width: calc(100% - 40px);
+        height: 80%;
+    }
+}
+
+
+
+
+    footer {
+      background: var(--main-color-50) ;
+      color: var(--main-color);
+      padding: 30px 10%;
+      text-align: center;
+    }
+
+    footer p { margin-bottom: 10px; }
+
+    footer a {
+      color: var(--main-color);
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: #000; }
 
     @keyframes fadeInLeft {
       from { opacity: 0; transform: translateX(-30px); }
@@ -554,6 +569,11 @@
       .hamburger { display: block; order: 2; }
       .logo-text { order: 1; }
       .navbar { justify-content: space-between; }
+
+      .hero { flex-direction: column; text-align: center; }
+      .hero-left h1 { font-size: 2.2rem; }
+      .hero-right { max-width: 100%; }
+      video { margin: 20px auto 0; margin-left: 0; }
 
       .mobile-menu .mobile-nav-buttons {
         display: none;
@@ -599,15 +619,16 @@
         text-decoration: none;
       }
     }
-
-  
+ 
 
   </style>
 </head>
 <body>
-    <div class="navbar">
-    <div class="logoimg"><img src="../Img/Brain Meets Circuitry Icon.png"width="50"></div>
+
+  <div class="navbar">
+    <div class="logoimg"><img src="../Img/Brain Meets Circuitry Icon.png" width="50"></div>
     
+
     <div class="nav-links">
       <a href="tech3.html">Home</a>
       <div class="dropdown-container">
@@ -618,7 +639,7 @@
         </div>
       </div>
      
-      <a href="projects.html" >Projects</a>
+      <a href="projects" >Projects</a>
       <a href="internships.html">Internships</a>
        <a href="teamconnect.html">Team Connect</a>
        <a href="resume.html">Resume Builder</a>
@@ -632,7 +653,7 @@
         <a href="Remainders.html">Reminders</a>
         <a href="signup1.html">Sign Up</a>
         <a href="login.html">Log In</a>
-        <a href="#">Logout</a>
+        <a href="tech3.html">Logout</a>
       </div>
     </div>
 
@@ -664,124 +685,137 @@
       <div class="mobile-profile-submenu">
         <a href="todo.html">To-Do Tracker</a>
         <a href="dashboard.html">Dashboard</a>
-        <a href="resume.html">Reminders</a>
+        <a href="Remainders.html">Reminders</a>
         <a href="signup1.html">Sign Up</a>
         <a href="login.html">Log In</a>
-        <a href="#">Logout</a>
+        <a href="tech3.html">Logout</a>
       </div>
     </div>
-  </div>  
-
-  <div class="container">
-    <h2 class="title">Tech Pulse - To Do Tracker</h2>
-
-    <div class="section">
-      <h3>Streak Overview</h3>
-      <div class="streak-cards">
-        <div class="streak-card">
-          <i class="fas fa-fire"></i>
-          <h4>Current Streak</h4>
-          <p>0</p>
-        </div>
-        <div class="streak-card">
-          <i class="fas fa-trophy"></i>
-          <h4>Longest Streak</h4>
-          <p>0</p>
-        </div>
-        <div class="streak-card">
-          <i class="fas fa-check-circle"></i>
-          <h4>Total Completed</h4>
-          <p>0</p>
-        </div>
-        <div class="streak-card">
-          <i class="fas fa-tasks"></i>
-          <h4>Today's Progress</h4>
-          <p>0%</p>
-        </div>
-      </div>
-      <div class="quote">"Small progress is still progress. Keep going!"</div>
-    </div>
-
-    <div class="section">
-      <h3>Weekly Streak</h3>
-      <div class="days">
-        <span>Mon <i class="fas fa-fire"></i></span>
-        <span>Tue <i class="fas fa-fire"></i></span>
-        <span>Wed <i class="fas fa-fire"></i></span>
-        <span>Thu <i class="fas fa-fire"></i></span>
-        <span>Fri <i class="fas fa-fire"></i></span>
-        <span>Sat <i class="fa-solid fa-circle-half-stroke"></i></span>
-        <span>Sun <i class="fa-solid fa-circle-half-stroke"></i></span>
-      </div>
-
-      <div class="tips">
-        <strong>📅 Weekly Streak Tips:</strong><br>
-        - Aim to maintain streaks at least 5 days a week for consistency.<br>
-        - Review your progress every Sunday and plan your upcoming week.<br>
-        - Use weekends for light tasks to avoid breaking the chain.<br>
-        - Identify which days you're less productive and plan ahead.
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Add Task</h3>
-      <input type="text" id="task-input" placeholder="Enter a task...">
-      <button id="add-btn">Add Task</button>
-
-      <div class="filters">
-        <button onclick="filterTasks('all')">All</button>
-        <button onclick="filterTasks('active')">Active</button>
-        <button onclick="filterTasks('completed')">Completed</button>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Today's Tasks</h3>
-      <ul id="task-list"></ul>
-    </div>
-
-    <div class="section">
-      <h3>Upcoming Coding Contests</h3>
-      <div class="contest-list">
-        <div class="contest-card">
-          <i class="fa-solid fa-code"></i>
-          <div>
-            <strong>LeetCode Weekly Contest</strong><br>
-            <span>Every Sunday</span> – 
-            <a href="https://leetcode.com/contest/" target="_blank">Join Now</a>
-          </div>
-        </div>
-        <div class="contest-card">
-          <i class="fa-brands fa-codepen"></i>
-          <div>
-            <strong>LeetCode BiWeekly Contest</strong><br>
-            <span>Alternate Saturdays</span> – 
-            <a href="https://leetcode.com/contest/" target="_blank">Register</a>
-          </div>
-        </div>
-        <div class="contest-card">
-          <i class="fa-solid fa-bolt"></i>
-          <div>
-            <strong>Codeforces Rounds</strong><br>
-            <span>Usually Thursdays</span> – 
-            <a href="https://codeforces.com/contests" target="_blank">View</a>
-          </div>
-        </div>
-        <div class="contest-card">
-          <i class="fa-solid fa-rocket"></i>
-          <div>
-            <strong>CodeChef Starters</strong><br>
-            <span>Wednesdays BiWeekly</span> – 
-            <a href="https://www.codechef.com/contests" target="_blank">Participate</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Welcome to Tech Pulse</h1>
+      <p>Your ultimate tech companion for mastering skills, building real-world projects, and staying connected with your team. Dive into curated learning paths and track your progress every step of the way.</p>
+    </div>
+    <div class="hero-right">
+      <video autoplay loop muted playsinline>
+        <source src="../Img/WhatsApp Video 2025-07-29 at 11.26.57 AM.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2>What is Tech Pulse?</h2>
+    <p>Tech Pulse is a centralized platform designed for tech learners and professionals to grow, collaborate, and succeed. Whether you're learning new skills, building real-world projects, or coordinating with your team-Tech Pulse brings everything under one roof.</p>
+  </section>
+
+  <section class="why-section">
+    <h2>Why Choose Tech Pulse?</h2>
+    <div class="why-features">
+      <div class="feature">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Structured Learning Paths</h3>
+        <p>Step-by-step guides tailored to your goals with real-world tech stacks.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-tasks"></i>
+        <h3>Project Tracker</h3>
+        <p>Organize, build, and complete hands-on projects that boost your resume.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-users"></i>
+        <h3>Team Connect</h3>
+        <p>Collaborate and communicate with your peers and mentors easily.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-file-alt"></i>
+        <h3>Smart Resume Builder</h3>
+        <p>Generate polished resumes tailored to your tech expertise in minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2>Key Highlights</h2>
+    <div class="why-features">
+      <div class="feature">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Innovation Driven</h3>
+        <p>Stay ahead with the latest trends in tech and tools that keep you future-ready.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-chart-line"></i>
+        <h3>Progress Dashboard</h3>
+        <p>Track your learning journey and project milestones with visual insights.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-globe"></i>
+        <h3>Community Access</h3>
+        <p>Join a vibrant community of learners, developers, and innovators.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-bolt"></i>
+        <h3>Quick Onboarding</h3>
+        <p>Get started easily with an intuitive interface and guided setup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2>What Our Users Say</h2>
+    <div class="why-features">
+      <div class="feature">
+        <i class="fas fa-user-circle"></i>
+        <h3>Divya - Student</h3>
+        <p>“Tech Pulse gave me everything I needed to build projects and land my internship. Highly recommended!”</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-user-circle"></i>
+        <h3>Saraswathi - Student</h3>
+        <p>“The Resume Builder and project tracker helped me stay organized while applying for jobs.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="infosection1" style="background-color:#f5eaff;">
+    <h2>Ready to Level Up?</h2>
+    <p>Join Tech Pulse and accelerate your tech journey today. Whether you're a beginner or a pro, we’ve got something for you.</p>
+    <div style="margin-top: 50px;">
+      <a href="signup1.html" style="padding: 12px 24px; background:var(--main-color); color: white; border-radius: 8px; font-weight: bold;">Get Started</a>
+    </div>
+  </section>
+  <div class="ai-chat-icon" onclick="toggleChatBox()">
+    <i class="fas fa-comment-dots"></i>
+</div>
+
+<div class="ai-chat-box" id="aiChatBox">
+    <div class="chat-header">
+        <h3>AI Assistant</h3>
+        <button class="close-chat" onclick="toggleChatBox()">&times;</button>
+    </div>
+    <div class="chat-body">
+        <p>Hi there! How can I help you today?</p>
+    </div>
+    <div class="chat-input">
+        <input type="text" placeholder="Type your message..." />
+        <button>Send</button>
+    </div>
+</div>
+
+  <footer>
+    <p>&copy; 2025 Tech Pulse. All rights reserved.</p>
+    <div>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+  </footer>
+
   <script>
-   function toggleMenu() {
+    function toggleMenu() {
       const mobileMenu = document.getElementById('mobileMenu');
       const hamburgerIcon = document.getElementById('hamburger').querySelector('i');
 
@@ -796,7 +830,7 @@
       }
     }
 
-    
+    // Function for the desktop profile dropdown
     function toggleProfileMenu() {
       const dropdown = document.getElementById('profileDropdown');
       if (window.innerWidth > 768) {
@@ -804,7 +838,7 @@
       }
     }
 
-    
+    // Function for the mobile profile submenu
     function toggleMobileProfileSubmenu() {
       const submenu = document.querySelector('.mobile-profile-submenu');
       const toggleButton = document.querySelector('.mobile-profile-toggle');
@@ -818,7 +852,7 @@
       }
     }
 
-   
+    // New function for the mobile Learning Path submenu
     function toggleMobileLearningPathSubmenu() {
       const submenu = document.querySelector('.mobile-learning-path-submenu');
       const toggleButton = document.querySelector('.mobile-learning-path-toggle');
@@ -833,14 +867,14 @@
     }
 
     window.addEventListener('click', function (e) {
-     
+      // Close desktop profile dropdown on outside click
       const profileIcon = document.querySelector('.profile-icon');
       const dropdown = document.getElementById('profileDropdown');
       if (window.innerWidth > 768 && !profileIcon.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = 'none';
       }
 
-      
+      // Close mobile profile submenu if click is outside
       const mobileProfileSection = document.querySelector('.mobile-profile-section');
       const mobileProfileSubmenu = document.querySelector('.mobile-profile-submenu');
       if (window.innerWidth <= 768 && mobileProfileSubmenu.style.display === 'flex' && !mobileProfileSection.contains(e.target) && !e.target.closest('.mobile-menu')) {
@@ -848,7 +882,7 @@
           document.querySelector('.mobile-profile-toggle').classList.remove('active');
       }
 
-    
+      // Close mobile learning path submenu if click is outside
       const mobileLearningPathSection = document.querySelector('.mobile-learning-path-section');
       const mobileLearningPathSubmenu = document.querySelector('.mobile-learning-path-submenu');
       if (window.innerWidth <= 768 && mobileLearningPathSubmenu.style.display === 'flex' && !mobileLearningPathSection.contains(e.target) && !e.target.closest('.mobile-menu')) {
@@ -857,7 +891,7 @@
       }
     });
 
-   
+    // Close mobile submenus when mobile menu itself is closed
     const mobileMenu = document.getElementById('mobileMenu');
     mobileMenu.addEventListener('transitionend', () => {
         if (!mobileMenu.classList.contains('show')) {
@@ -881,61 +915,12 @@
         }
     });
 
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const input = document.getElementById("task-input");
-      const button = document.getElementById("add-btn");
-      const taskList = document.getElementById("task-list");
-
-      button.addEventListener("click", () => {
-        const taskText = input.value.trim();
-        if (!taskText) return;
-
-        const li = document.createElement("li");
-        li.setAttribute("data-status", "active");
-
-        const span = document.createElement("span");
-        span.textContent = taskText;
-
-        const actions = document.createElement("div");
-        actions.classList.add("task-actions");
-
-        const completeBtn = document.createElement("i");
-        completeBtn.classList.add("fas", "fa-check");
-        completeBtn.onclick = () => {
-          li.classList.toggle("completed");
-          li.setAttribute("data-status", li.classList.contains("completed") ? "completed" : "active");
-        };
-
-        const editBtn = document.createElement("i");
-        editBtn.classList.add("fas", "fa-pen");
-        editBtn.onclick = () => {
-          const newText = prompt("Edit task:", span.textContent);
-          if (newText) span.textContent = newText;
-        };
-
-        const deleteBtn = document.createElement("i");
-        deleteBtn.classList.add("fas", "fa-trash");
-        deleteBtn.onclick = () => li.remove();
-
-        actions.append(completeBtn, editBtn, deleteBtn);
-        li.append(span, actions);
-        taskList.appendChild(li);
-        input.value = "";
-      });
-    });
-
-    function filterTasks(type) {
-      const tasks = document.querySelectorAll("#task-list li");
-      tasks.forEach(task => {
-        const status = task.getAttribute("data-status");
-        if (type === "all") {
-          task.style.display = "flex";
-        } else {
-          task.style.display = status === type ? "flex" : "none";
-        }
-      });
-    }
+    // New function to toggle the AI chat box
+function toggleChatBox() {
+    const chatBox = document.getElementById('aiChatBox');
+    chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+}
   </script>
+
 </body>
 </html>
